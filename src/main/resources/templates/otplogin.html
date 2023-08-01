@@ -31,11 +31,16 @@
                 </div>
           
                 <div class="modal-body p-5 pt-0">
-                  <form class="">
+                  <form th:action="@{/processloginviaotpform}" method="post">
 
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control rounded-3" id="floatingNumber"
-                      placeholder="Number" pattern="[0-9]{10}" maxlength="10" required>
+                      <input type="text" 
+                      class="form-control rounded-3" 
+                      id="floatingNumber"
+                      placeholder="Number" 
+                      name="number"
+                      pattern="[0-9]{10}" 
+                      minlength="10" maxlength="10" required>
                       <label for="floatingNumber">Mobile Number</label>
                     </div>
 

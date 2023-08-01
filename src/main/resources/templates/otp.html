@@ -33,14 +33,14 @@
                   <div class="pb-4"><span>A 4-digit code has been sent to </span><small>*******9897</small></div>
             
                   <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <form th:action="@{/processotpform}" method="post">
   
                       <div class="form-floating mb-3">
                         <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
-                            <input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" pattern="[0-9]{1}" required/> 
-                            <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" pattern="[0-9]{1}" required/> 
-                            <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" pattern="[0-9]{1}" required/> 
-                            <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" pattern="[0-9]{1}" required/>
+                            <input class="m-2 text-center form-control rounded" type="number" id="first" name="first" min="1" max="9" required/> 
+                            <input class="m-2 text-center form-control rounded" type="number" id="second" name="second" min="1" max="9" required/> 
+                            <input class="m-2 text-center form-control rounded" type="number" id="third" name="third" min="1" max="9" required/> 
+                            <input class="m-2 text-center form-control rounded" type="number" id="fourth" name="fourth" min="1" max="9" required/>
                         </div>
                       </div>
   
