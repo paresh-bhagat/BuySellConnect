@@ -13,13 +13,14 @@ import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.LoginService;
 
 @Controller
+@RequestMapping("/BuySellConnect")
 public class LoginController {
 	
 		@Autowired
 		private LoginService loginservice;
 		
 		// login page
-		@RequestMapping(value="/BuySellConnect/login",method = RequestMethod.GET)
+		@RequestMapping(value="/login",method = RequestMethod.GET)
 		public String loginHandler(Model model) {
 			model.addAttribute("user", new UserInfo());
 			System.out.println("This is the login page");
@@ -38,13 +39,13 @@ public class LoginController {
 				return "login";
 			}
 				
-			System.out.println(user.getUser_name());
-			System.out.println(user.getUser_password());
+			//System.out.println(user.getUser_name());
+			//System.out.println(user.getUser_password());
 			return "redirect:/BuySellConnect/products";
 		}
 		
 		// login via otp page
-		@RequestMapping(value="/BuySellConnect/otplogin",method = RequestMethod.GET)
+		@RequestMapping(value="/otplogin",method = RequestMethod.GET)
 		public String loginviaOTPHandler() {
 			
 			System.out.println("This is the login otp page");
@@ -62,7 +63,7 @@ public class LoginController {
 		}
 		
 		// otp page
-		@RequestMapping(value="/BuySellConnect/enterotp",method = RequestMethod.GET)
+		@RequestMapping(value="/enterotp",method = RequestMethod.GET)
 		public String otpHandler() {
 			System.out.println("This is the otp page");
 			return "otp";

@@ -3,11 +3,18 @@ package com.BuySellConnect.web.service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.BuySellConnect.web.dao.UserInfoRepository;
 
 @Service
 public class LoginService {
 	
+	@Autowired
+	private UserInfoRepository userinforepo;
+	
+	// check whether mobile number is valid or not
 	public boolean isValidMobileNo(String str)  
 	{  
 		//(0/91): number starts with (0/91)  
@@ -18,6 +25,8 @@ public class LoginService {
 		Matcher match = ptrn.matcher(str);  
 		//returns a boolean value  
 		return (match.find() && match.group().equals(str));  
-	}  
+	}
+	
+	
 
 }

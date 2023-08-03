@@ -31,19 +31,19 @@
                 </div>
           
                 <div class="modal-body p-5 pt-0">
-                  <form th:action="@{/processloginform}" method="post" th:object="${user}">
+                  <form th:action="@{/BuySellConnect/processloginform}" method="post" th:object="${user}">
 
                     <div class="form-floating mb-3"> <input type="text" 
                       class="form-control rounded-3" id="floatingInput" 
                       placeholder="Username" 
-                      name="user_name"
+                      name="username"
                       minlength="1" 
                       maxlength="20" required>
                       <label for="floatingInput">Username</label>
                     </div>
                     
            
-            		<div th:each="error : ${#fields.errors('user_name')}" class="alert alert-warning alert-dismissible fade show" 
+            		<div th:each="error : ${#fields.errors('username')}" class="alert alert-warning alert-dismissible fade show" 
             		role="alert">
 						<p th:text="${error}"></p>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -54,13 +54,13 @@
                       class="form-control rounded-3" 
                       id="floatingPassword" 
                       placeholder="Password" 
-                      name="user_password"
+                      name="password"
                       minlength="1" 
                       maxlength="20" required>
                       <label for="floatingPassword">Password</label>
                     </div>
                     
-                    <div th:each="error : ${#fields.errors('user_password')}" class="alert alert-warning alert-dismissible fade show" 
+                    <div th:each="error : ${#fields.errors('password')}" class="alert alert-warning alert-dismissible fade show" 
             		role="alert">
 						<p th:text="${error}"></p>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

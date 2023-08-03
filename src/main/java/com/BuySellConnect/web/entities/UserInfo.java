@@ -1,8 +1,13 @@
 package com.BuySellConnect.web.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
@@ -13,55 +18,93 @@ public class UserInfo {
 	@Id
 	@Column(length=20,name="User_Name")
 	@Size(min=1,max=20,message="Username between 1 to 20 characters")
-	private String user_name;
+	private String username;
 	
 	@Column(length=20,name="User_Password")
 	@Size(min=1,max=20,message="Password between 1 to 20 characters")
-	private String user_password;
+	private String password;
 	
-	@Column(length=10,name="User_Mobile_Number")
-	private String user_mobile_number;
+	@Column(length=10,name="User_Mobile_Number",unique=true)
+	private String mobileNumber;
+	
+	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<UserProduct> products;
+	
+	@Column(length=10,name="User_Role")
+	private String role;
+	
+	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Order> orders;
 
-	public String getUser_name() {
-		return user_name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getUser_password() {
-		return user_password;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getUser_mobile_number() {
-		return user_mobile_number;
+	public String getMobileNumber() {
+		return mobileNumber;
 	}
 
-	public void setUser_mobile_number(String user_phone_number) {
-		this.user_mobile_number = user_phone_number;
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
-	public UserInfo(String user_name, String user_password, String user_phone_number) {
+	public List<UserProduct> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<UserProduct> products) {
+		this.products = products;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfo [username=" + username + ", password=" + password + ", mobileNumber=" + mobileNumber
+				+ ", products=" + products + ", role=" + role + ", orders=" + orders + "]";
+	}
+
+	public UserInfo(@Size(min = 1, max = 20, message = "Username between 1 to 20 characters") String username,
+			@Size(min = 1, max = 20, message = "Password between 1 to 20 characters") String password,
+			String mobileNumber, List<UserProduct> products, String role, List<Order> orders) {
 		super();
-		this.user_name = user_name;
-		this.user_password = user_password;
-		this.user_mobile_number = user_phone_number;
+		this.username = username;
+		this.password = password;
+		this.mobileNumber = mobileNumber;
+		this.products = products;
+		this.role = role;
+		this.orders = orders;
 	}
 
 	public UserInfo() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfo [user_name=" + user_name + ", user_password=" + user_password + ", user_phone_number="
-				+ user_mobile_number + "]";
 	}
 	
 }
