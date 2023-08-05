@@ -1,15 +1,19 @@
 package com.BuySellConnect.web.entities;
 
 import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="User_Info")
@@ -20,20 +24,22 @@ public class UserInfo {
 	@Size(min=1,max=20,message="Username between 1 to 20 characters")
 	private String username;
 	
-	@Column(length=20,name="User_Password")
+	@Column(length=100,name="User_Password")
 	@Size(min=1,max=20,message="Password between 1 to 20 characters")
 	private String password;
 	
 	@Column(length=10,name="User_Mobile_Number",unique=true)
 	private String mobileNumber;
 	
-	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<UserProduct> products;
 	
 	@Column(length=10,name="User_Role")
 	private String role;
 	
-	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Order> orders;
 
 	public String getUsername() {
@@ -106,5 +112,5 @@ public class UserInfo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

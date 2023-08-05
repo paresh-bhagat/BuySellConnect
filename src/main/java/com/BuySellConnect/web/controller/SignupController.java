@@ -1,5 +1,7 @@
 package com.BuySellConnect.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,8 @@ public class SignupController {
 		@Autowired
 		private SignupService signupservice;
 		
-		//@Autowired
-		//private BCryptPasswordEncoder passswordEncoder;
+		@Autowired
+		private BCryptPasswordEncoder passswordEncoder;
 	
 		// signup page
 		@RequestMapping(value="/signup",method = RequestMethod.GET)
@@ -33,7 +35,7 @@ public class SignupController {
 		
 		// signup form
 		@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
-		public String handleSignUpForm(@jakarta.validation.Valid @ModelAttribute("user") UserInfo user,
+		public String handleSignUpForm(@Valid @ModelAttribute("user") UserInfo user,
 				@RequestParam("number") String mobile_number, BindingResult result) {
 			
 			System.out.println(result.hasErrors());
@@ -43,20 +45,37 @@ public class SignupController {
 				return "signup";
 			}
 			
-			if(this.signupservice.isValidMobileNo(mobile_number)==false)
+			if(this.signupservice.isValidMobileNo(mobile_number)==false) {
+				System.out.println("not valid number");
 				return "redirect:/BuySellConnect/signup";
+			}
+				
 			
-			//if(signupservice.checkUserName(user.getUser_name()))
-			//	return "redirect:/BuySellConnect/signup";
-			
-			if(signupservice.checkMobileNumber(mobile_number))
+			if(signupservice.checkUserName(user.getUsername())) {
+				System.out.println("username already exist");
 				return "redirect:/BuySellConnect/signup";
+			}
+				
+			
+			if(signupservice.checkMobileNumber(mobile_number)) {
+				System.out.println("phonenumber already exist");
+				return "redirect:/BuySellConnect/signup";
+			}
+				
 			
 			System.out.println("This is the signup form handler");
-			//System.out.println(user.getUser_name());
-			//System.out.println(user.getUser_password());
-			//System.out.println(user.getUser_mobile_number());
+			System.out.println(user.getUsername());
+			System.out.println( passswordEncoder.encode(user.getPassword()));
+			System.out.println(user.getMobileNumber());
 			System.out.println(mobile_number);
+			String password = user.getPassword();
+			
+			user.setPassword(passswordEncoder.encode(password));
+			user.setMobileNumber(mobile_number);
+			user.setRole("ROLE_USER");
+			
+			signupservice.createAccount(user);
+			
 			return "redirect:/BuySellConnect/enterotp"; 
 		}
 		

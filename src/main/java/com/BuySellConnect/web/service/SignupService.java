@@ -42,7 +42,9 @@ public class SignupService {
 		
 		List<UserInfo> temp = userinforepo.findBymobileNumber(mobileNumber);
 		
-		if(temp==null)
+		System.out.println(temp);
+		
+		if(temp.isEmpty())
 			return false;
 		return true;
 	}

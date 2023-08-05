@@ -1,5 +1,7 @@
 package com.BuySellConnect.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +29,9 @@ public class LoginController {
 			return "login";
 		}
 		
-		// login form
+		/*// login form
 		@RequestMapping(path="/processloginform", method=RequestMethod.POST)
-		public String handleLogInForm(@jakarta.validation.Valid @ModelAttribute("user") UserInfo user, 
+		public String handleLogInForm(@Valid @ModelAttribute("user") UserInfo user, 
 				BindingResult result) {
 			
 			System.out.println(result.hasErrors());
@@ -60,7 +62,7 @@ public class LoginController {
 				return "otplogin";
 						
 			return "redirect:/BuySellConnect/enterotp";
-		}
+		}*/
 		
 		// otp page
 		@RequestMapping(value="/enterotp",method = RequestMethod.GET)
@@ -73,8 +75,13 @@ public class LoginController {
 		@RequestMapping(path="/processotpform", method=RequestMethod.POST)
 		public String handleOtpForm( @RequestParam("first") String first, @RequestParam("second") String second, 
 				@RequestParam("third") String third, @RequestParam("fourth") String fourth) {
-							
-			return "redirect:/BuySellConnect/products";
+				
+			int num1 = Integer.parseInt(first);
+			int num2 = Integer.parseInt(second);
+			int num3 = Integer.parseInt(third);
+			int num4 = Integer.parseInt(fourth);
+				
+			return "redirect:/BuySellConnect/login";
 		}
 		
 }
