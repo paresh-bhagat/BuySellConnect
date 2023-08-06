@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +21,24 @@ public class otpController {
 	// otp page
 	@RequestMapping(value="/enterotp",method = RequestMethod.GET)
 	public String otpHandler(HttpServletRequest request, 
-			HttpSession session) {
+			HttpSession session, Model model) {
+		
 		session = request.getSession(true);
 		int attempts =  (int)session.getAttribute("attempts");
+		UserInfo user = (UserInfo)session.getAttribute("user");
+		String mobile_number = user.getMobileNumber();
+		String last4digits = mobile_number.substring(mobile_number.length() - 4);
+		System.out.print(last4digits);
 		
-		if(attempts==0)
-			return "redirect:/BuySellConnect/signup";
+		model.addAttribute("last4digits",last4digits);
+		model.addAttribute("attempts", "Attempts remaining : " + Integer. toString(attempts));
 		
+		if(attempts==0) {
+			model.addAttribute("user", new UserInfo());
+			model.addAttribute("attempts_exceed","Maximum attempt exceeded");
+			return "signup";
+		}
+			
 		System.out.println("This is the otp page");
 		return "otp";
 	}
@@ -35,7 +47,7 @@ public class otpController {
 	@RequestMapping(path="/processotpform", method=RequestMethod.POST)
 	public String handleOtpForm( @RequestParam("first") String first, @RequestParam("second") String second, 
 			@RequestParam("third") String third, @RequestParam("fourth") String fourth, 
-			HttpServletRequest request, HttpSession session) {
+			HttpServletRequest request, HttpSession session, Model model) {
 		
 		int num1 = Integer.parseInt(first);
 		int num2 = Integer.parseInt(second);
@@ -61,7 +73,9 @@ public class otpController {
 			session.setAttribute("attempts", attempts);
 			return "redirect:/BuySellConnect/enterotp";
 		}
-			
-		return "redirect:/BuySellConnect/login";
+		
+		model.addAttribute("SignUpMessage", "Signup Successfull please login!");
+		model.addAttribute("user", new UserInfo());
+		return "login";
 	}
 }

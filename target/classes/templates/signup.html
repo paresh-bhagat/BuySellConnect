@@ -31,7 +31,13 @@
           
                 <div class="modal-body p-5 pt-0">
                   <form th:action="@{/BuySellConnect/processsignupform}" method="post">
-
+					
+					<!--signup failed-->
+					<div th:if="${attempts_exceed}" class="alert alert-danger alert-dismissible fade show" role="alert">
+						<p th:text="${attempts_exceed}"></p>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
                     <div class="form-floating mb-3">
                       <input type="text" 
                       class="form-control rounded-3" 
@@ -43,6 +49,7 @@
                       <label for="floatingInput">Username</label>
                     </div>
                     
+                    <!--for field error-->
                     <div th:each="error : ${#fields.errors('user.username')}" class="alert alert-warning alert-dismissible fade show" 
             		role="alert">
 						<p th:text="${error}"></p>
@@ -72,9 +79,17 @@
                       <label for="floatingPassword">Password</label>
                     </div>
                     
+                    <!--for field error-->
                     <div th:each="error : ${#fields.errors('user.password')}" class="alert alert-warning alert-dismissible fade show" 
             		role="alert">
 						<p th:text="${error}"></p>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
+					<!--for other errors-->
+					<div th:if="${errorMessage}" class="alert alert-warning alert-dismissible fade show" 
+					role="alert">
+						<p th:text="${errorMessage}"></p>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 

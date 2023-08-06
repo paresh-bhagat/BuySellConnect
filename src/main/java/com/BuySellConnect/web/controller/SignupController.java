@@ -42,7 +42,7 @@ public class SignupController {
 		@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
 		public String handleSignUpForm(@Valid @ModelAttribute("user") UserInfo user,
 				@RequestParam("number") String mobile_number, BindingResult result,
-				HttpSession session) throws IOException {
+				HttpSession session, Model model) throws IOException {
 			
 			System.out.println(result.hasErrors());
 			
@@ -51,21 +51,22 @@ public class SignupController {
 				return "signup";
 			}
 			
+			if(signupservice.checkUserName(user.getUsername())) {
+				System.out.println("Username already exist");
+				model.addAttribute("errorMessage", "Username already exist!");
+				return "signup";
+			}
+			
 			if(this.signupservice.isValidMobileNo(mobile_number)==false) {
 				System.out.println("not valid number");
-				return "redirect:/BuySellConnect/signup";
+				model.addAttribute("errorMessage", "Invalid phone number format!");
+				return "signup";
 			}
 				
-			
-			if(signupservice.checkUserName(user.getUsername())) {
-				System.out.println("username already exist");
-				return "redirect:/BuySellConnect/signup";
-			}
-				
-			
 			if(signupservice.checkMobileNumber(mobile_number)) {
 				System.out.println("phonenumber already exist");
-				return "redirect:/BuySellConnect/signup";
+				model.addAttribute("errorMessage", "Mobile number already exist!");
+				return "signup";
 			}
 				
 			
@@ -83,11 +84,12 @@ public class SignupController {
 			
 			// send otp
 			int[] otp = otpservice.getOtp();
-			Boolean sendOtpStatus = otpservice.sendOtpSms(user.getMobileNumber(), otp);
+			Boolean sendOtpStatus =  otpservice.sendOtpSms(user.getMobileNumber(), otp);
 			
 			if(sendOtpStatus==false) {
 				System.out.println("Otp not send");
-				return "redirect:/BuySellConnect/signup";
+				model.addAttribute("errorMessage", "Send OTP failed.Please try again!");
+				return "signup";
 			}
 				
 			session.setAttribute("user", user);

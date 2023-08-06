@@ -32,7 +32,19 @@
           
                 <div class="modal-body p-5 pt-0">
                   <form th:action="@{/BuySellConnect/login}" method="post" th:object="${user}">
-
+					
+					<!--for signup-->
+					<div th:if="${SignUpMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+						<p th:text="${SignUpMessage}"></p>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
+					<!--for logout-->
+					<div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show" role="alert">
+		 				Successfully Logged Out
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
                     <div class="form-floating mb-3"> <input type="text" 
                       class="form-control rounded-3" id="floatingInput" 
                       placeholder="Username" 
@@ -42,7 +54,6 @@
                       <label for="floatingInput">Username</label>
                     </div>
                     
-           
             		<div th:each="error : ${#fields.errors('username')}" class="alert alert-warning alert-dismissible fade show" 
             		role="alert">
 						<p th:text="${error}"></p>
@@ -67,15 +78,10 @@
 					</div>
 					
 					<div th:if="${param.error}" class="alert alert-warning alert-dismissible fade show" role="alert">
-		 				Wrong Username or Password
+		 				Wrong Username or Password!
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-	
-					<div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show" role="alert">
-		 				Successfully Logged Out
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-
+					
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Login</button>
                    
                     <div class="mt-3">
