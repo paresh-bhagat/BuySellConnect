@@ -1,26 +1,15 @@
 package com.BuySellConnect.web.controller;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.BuySellConnect.web.entities.UserInfo;
-import com.BuySellConnect.web.service.LoginService;
 
 @Controller
 @RequestMapping("/BuySellConnect")
 public class LoginController {
 	
-		@Autowired
-		private LoginService loginservice;
-		
 		// login page
 		@RequestMapping(value="/login",method = RequestMethod.GET)
 		public String loginHandler(Model model) {
@@ -63,25 +52,5 @@ public class LoginController {
 						
 			return "redirect:/BuySellConnect/enterotp";
 		}*/
-		
-		// otp page
-		@RequestMapping(value="/enterotp",method = RequestMethod.GET)
-		public String otpHandler() {
-			System.out.println("This is the otp page");
-			return "otp";
-		}
-		
-		// otp form
-		@RequestMapping(path="/processotpform", method=RequestMethod.POST)
-		public String handleOtpForm( @RequestParam("first") String first, @RequestParam("second") String second, 
-				@RequestParam("third") String third, @RequestParam("fourth") String fourth) {
-				
-			int num1 = Integer.parseInt(first);
-			int num2 = Integer.parseInt(second);
-			int num3 = Integer.parseInt(third);
-			int num4 = Integer.parseInt(fourth);
-				
-			return "redirect:/BuySellConnect/login";
-		}
 		
 }

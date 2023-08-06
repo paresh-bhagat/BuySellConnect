@@ -1,7 +1,9 @@
 package com.BuySellConnect.web.controller;
 
-import javax.validation.Valid;
+import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,9 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.SignupService;
+import com.BuySellConnect.web.service.otpService;
 
 @Controller
 @RequestMapping("/BuySellConnect")
@@ -21,6 +23,9 @@ public class SignupController {
 	
 		@Autowired
 		private SignupService signupservice;
+		
+		@Autowired
+		private otpService otpservice;
 		
 		@Autowired
 		private BCryptPasswordEncoder passswordEncoder;
@@ -36,7 +41,8 @@ public class SignupController {
 		// signup form
 		@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
 		public String handleSignUpForm(@Valid @ModelAttribute("user") UserInfo user,
-				@RequestParam("number") String mobile_number, BindingResult result) {
+				@RequestParam("number") String mobile_number, BindingResult result,
+				HttpSession session) throws IOException {
 			
 			System.out.println(result.hasErrors());
 			
@@ -73,8 +79,20 @@ public class SignupController {
 			user.setPassword(passswordEncoder.encode(password));
 			user.setMobileNumber(mobile_number);
 			user.setRole("ROLE_USER");
+			int attempts = 3;
 			
-			signupservice.createAccount(user);
+			// send otp
+			int[] otp = otpservice.getOtp();
+			Boolean sendOtpStatus = otpservice.sendOtpSms(user.getMobileNumber(), otp);
+			
+			if(sendOtpStatus==false) {
+				System.out.println("Otp not send");
+				return "redirect:/BuySellConnect/signup";
+			}
+				
+			session.setAttribute("user", user);
+			session.setAttribute("otp",otp);
+			session.setAttribute("attempts", attempts);
 			
 			return "redirect:/BuySellConnect/enterotp"; 
 		}

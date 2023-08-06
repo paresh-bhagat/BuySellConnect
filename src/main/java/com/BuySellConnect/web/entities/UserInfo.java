@@ -1,17 +1,13 @@
 package com.BuySellConnect.web.entities;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -110,7 +106,6 @@ public class UserInfo {
 
 	public UserInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }
