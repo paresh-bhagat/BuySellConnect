@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="auto" xmlns:th="http://www.thymeleaf.org">
   <head>
 
     <meta charset="utf-8">
@@ -13,8 +13,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     
+    <!--bootstrap icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
     <!--mycss-->
-    <link rel="stylesheet" href="css/cart.css">
+   <link rel="stylesheet" th:href="@{css/myproducts.css}">
 
     <!--favicon-->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
@@ -23,72 +26,97 @@
   <body>
     
   <header data-bs-theme="dark">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home.html">MyBlogSpace</a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Topics
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" value="all" id="flexRadioDefault1" checked>
-                  <label class="form-check-label" for="flexRadioDefault1">
-                    All topics
-                  </label>
-                </div>
-
-              </a></li>
-
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">
-                <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="first" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  radio1
-                </label>
-                </div>
-              </a></li>
-
-              <li><a class="dropdown-item" href="#"><div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="second" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  radio2
-                </label>
-              </div></a></li>
-
-              <li><a class="dropdown-item" href="#"><div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="third" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  radio3
-                </label>
-              </div></a></li>
-
-            </ul>
-          </li>
-
-        </ul>
+	  
+  <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">BuySellConnect</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		  
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/products}">Products</a>
+        </li>
         
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">MyProducts</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/orders}">MyOrders</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/profile}">Profile</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+       
+    </div>
+  </div>
+  </nav>
+  </header>
+
+  <main>
+
+  <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+
+    <div class="carousel-inner">
+      
+      <div class="carousel-item active">
+        <img src="images/carousel1.jpg" class="filtered" style="width: 100%"/>
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Get Started</h1>
+            <p>Start selling your products today!</p>
+            <p><a class="btn btn-outline-primary btn-lg" th:href="@{/BuySellConnect/user/addproduct}">Add Product</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="images/carousel2.jpg" class="filtered" style="width: 100%"/>
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Love the work</h1>
+            <p>Check out the source code and my other projects</p>
+            <p><a class="btn btn-outline-primary btn-lg" href="https://github.com/paresh-bhagat">Go to Github</a></p>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
-</header>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
 
-<main>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
+  </div>
 
   <div class="container marketing">
 
@@ -322,13 +350,33 @@
       
     </section>
     
-  </div><!-- /.container -->
+    
 
-</main>
+  </div>
+  
+  <!-- /.container -->
 
-<!--bootstrap js-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-</body>
+  <!-- FOOTER -->
+  <footer class="container">
+    <a href="#" class="float-end"><i class="bi bi-arrow-up-circle-fill" style="font-size: 2rem; color: cornflowerblue;"></i></a>
+    <p class="fst-italic">Made by Paresh</p>
+  </footer>
+
+	</main>
+
+
+  <!--bootstrap js-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+  </script>
+
+  <!--jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+  <!--my js-->
+  <script th:src="@{js/myproducts.js}"></script>
+      
+  </body>
+  
 </html>

@@ -3,12 +3,12 @@ body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 
-.logout {
+.general {
     background: #6e6a6b;
     transition: background-color 1ms ease-out 100ms
   }
   
-.logout:hover {
+.general:hover {
     background-color: #211f20;
 }
 
@@ -20,4 +20,3 @@ body {
 .deleteaccount:hover {
     background-color: #b53d32;
 }
-

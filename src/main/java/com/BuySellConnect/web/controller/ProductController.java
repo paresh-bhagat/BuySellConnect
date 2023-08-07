@@ -14,4 +14,22 @@ public class ProductController {
         return "products";
 	}
 	
+	@RequestMapping(value="/myproducts",method = RequestMethod.GET)
+	public String myProducts() {
+		System.out.println("This is the my product page");
+        return "myproducts";
+	}
+	
+	@RequestMapping(value="/addproduct",method = RequestMethod.GET)
+	public String addProduct() {
+		System.out.println("This is the add product page");
+        return "addproduct";
+	}
+	
+	@RequestMapping(value="/editproduct",method = RequestMethod.GET)
+	public String editProduct() {
+		System.out.println("This is the edit product page");
+        return "editproduct";
+	}
+	
 }
