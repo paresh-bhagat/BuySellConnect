@@ -48,23 +48,23 @@ public class BuySellConnectConfig extends WebSecurityConfigurerAdapter  {
 		.hasRole("ADMIN")
 		.antMatchers("/BuySellConnect/user/**")
 		.hasRole("USER")
-		.antMatchers("/BuySellConnect/**")
+		.antMatchers("/BuySellConnect/**","/resources/**", "/static/**", "/css/**", "/js/**", "/images/**")
 		.permitAll().and()
 		.formLogin()
 		.loginPage("/BuySellConnect/login")
-		.defaultSuccessUrl("/BuySellConnect/user/products")
+		.defaultSuccessUrl("/BuySellConnect/user/products") 
 		.and()
 		.csrf()
 		.disable();
 		
 	}
 	
-	@Override
+	/*@Override
     public void configure(WebSecurity web) throws Exception {
         web
         .ignoring()
         .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
-    }
+    }*/
 	
 }
 	

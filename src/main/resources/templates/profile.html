@@ -11,10 +11,10 @@
     crossorigin="anonymous">
 
     <!--my css-->
-    <link rel="stylesheet" th:href="@{css/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
 
     <!--favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
     
   </head>
   <body>
@@ -64,7 +64,7 @@
               </div>
             </div>
             
-            <a href="http://example.com" style="text-decoration: none">
+            <a th:href="@{/BuySellConnect/user/orders}" style="text-decoration: none">
               <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
                   <div class="lh-1">
                       <h2 class="m-1 text-white lh-1">MyOrders</h2>
@@ -72,7 +72,7 @@
               </div>
             </a>
 
-            <a href="http://example.com" style="text-decoration: none">
+            <a th:href="@{/BuySellConnect/user/myproducts}" style="text-decoration: none">
               <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
                   <div class="lh-1">
                       <h2 class="m-1 text-white lh-1">MyProducts</h2>
@@ -80,7 +80,7 @@
               </div>
             </a>
             
-            <a href="http://example.com" style="text-decoration: none">
+            <a th:href="@{/logout}" style="text-decoration: none">
                 <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
                     <div class="lh-1">
                         <h2 class="m-1 text-white lh-1">Logout</h2>
