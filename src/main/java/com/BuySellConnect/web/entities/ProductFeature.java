@@ -2,12 +2,12 @@ package com.BuySellConnect.web.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Product_Features")
@@ -18,10 +18,12 @@ public class ProductFeature {
 	@Column(name="Feature_id")
 	private int featureId;
 	
-	@Column(length=70,name="Feature_Title")
+	@Column(length=20,name="Feature_Title")
+	@Size(min=1,max=20,message="Feature title between 1 to 20 characters")
 	private String featureTitle;
 	
 	@Column(length=60,name="Feature_Content")
+	@Size(min=1,max=60,message="Feature content between 1 to 60 characters")
 	private String featureContent;
 	
 	@ManyToOne

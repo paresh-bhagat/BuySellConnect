@@ -9,5 +9,5 @@ public interface UserInfoRepositoryjpa extends JpaRepository<UserInfo,String> {
 	
 	@Query("select u from UserInfo u where u.username = :username")
 	public UserInfo getUserByUserName(@Param("username") String username);
-
+	
 }

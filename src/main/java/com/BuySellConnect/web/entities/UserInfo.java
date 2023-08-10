@@ -107,5 +107,27 @@ public class UserInfo {
 	public UserInfo() {
 		super();
 	}
+	
+	// add product
+	
+	public void addProduct(UserProduct product){
+		this.products.add(product);
+	}
+		
+	// remove product
+	public void removeProduct(int i){
+		this.products.remove(i);
+	}
+	
+	// add product
+	
+	public void addOrder(Order order){
+		this.orders.add(order);
+	}
+			
+	// remove product
+	public void removeOrder(int i){
+		this.orders.remove(i);
+	}
 
 }

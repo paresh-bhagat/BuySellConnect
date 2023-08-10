@@ -79,15 +79,19 @@
           </select>
         </div>
     
-        <div class="mb-3 pb-2 text-center">
-            <label for="exampleFormControlInput1" class="form-label fs-3">Choose City*</label>
-            <select class="form-select" aria-label="Default select example" name="productCity">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+       <div class="mb-3 pb-2 text-center">
+            <label for="exampleFormControlInput1" class="form-label fs-3">Choose State*</label>
+            <select class="form-select" aria-label="Default select example" name="productCity" id="stateSelect" onchange="populateCities()">
+              <option value="">Select State</option>
             </select>
         </div>
+
+        <div class="mb-3 pb-2 text-center">
+          <label for="exampleFormControlInput1" class="form-label fs-3">Choose City*</label>
+          <select class="form-select" aria-label="Default select example" name="productCity" id="citySelect">
+            <option value="">Select City</option>
+          </select>
+       </div>
         
         <div class="mb-3 pb-2 text-center">
             <label for="exampleFormControlTextarea1" class="form-label fs-3">Overview*</label>

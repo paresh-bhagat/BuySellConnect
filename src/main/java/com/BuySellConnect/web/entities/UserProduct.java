@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,27 +30,45 @@ public class UserProduct {
 	private int productId;
 	
 	@Column(length=70,name="Product_Title")
+	@Size(min=1,max=70,message="Title between 1 to 70 characters")
 	private String productTitle;
 	
 	@Column(length=60,name="Product_Category")
+	@Size(min=1,max=60,message="Title between 1 to 60 characters")
 	private String productCategory;
 	
-	@Column(length=60,name="Product_Overview")
+	@Column(length=70,name="Product_Overview")
+	@Size(min=1,max=70,message="Overview between 1 to 70 characters")
 	private String productOverview;
 	
-	@Column(length=7500,name="Product_Content")
+	@Column(length=7500,name="Product_Description")
+	@Size(min=1,max=7500,message="Content between 1 to 7500 characters")
 	private String productDescription;
 
 	@Column(name="Product_Date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date productDate;
 	
-	@Column(length=60,name="Product_Pic")
-	private String productPic;
+	@Column(length=60,name="Product_Image")
+	@Size(min=1,max=60,message="Image name between 1 to 60 characters")
+	private String productImage;
 	
-	@Column(length=70,name="Product_City")
+	@Column(length=20,name="Product_City")
+	@Size(min=1,max=20,message="City name between 1 to 20 characters")
 	private String productCity;
 	
+	@Column(length=20,name="Product_State")
+	@Size(min=1,max=20,message="State name between 1 to 20 characters")
+	private String productState;
+	
+	public String getProductState() {
+		return productState;
+	}
+
+	public void setProductState(String productState) {
+		this.productState = productState;
+	}
+
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="userProduct",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<ProductFeature> productFeatures;
@@ -106,12 +124,12 @@ public class UserProduct {
 		this.productDate = productDate;
 	}
 
-	public String getProductPic() {
-		return productPic;
+	public String getProductImage() {
+		return productImage;
 	}
 
-	public void setProductPic(String productPic) {
-		this.productPic = productPic;
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 
 	public String getProductCity() {
@@ -138,16 +156,8 @@ public class UserProduct {
 		this.userInfo = userInfo;
 	}
 
-	@Override
-	public String toString() {
-		return "UserProduct [productId=" + productId + ", productTitle=" + productTitle + ", productCategory="
-				+ productCategory + ", productOverview=" + productOverview + ", productDescription="
-				+ productDescription + ", productDate=" + productDate + ", productPic=" + productPic + ", productCity="
-				+ productCity + ", productFeatures=" + productFeatures + ", userInfo=" + userInfo + "]";
-	}
-
 	public UserProduct(int productId, String productTitle, String productCategory, String productOverview,
-			String productDescription, Date productDate, String productPic, String productCity,
+			String productDescription, Date productDate, String productImage, String productCity, String productState,
 			List<ProductFeature> productFeatures, UserInfo userInfo) {
 		super();
 		this.productId = productId;
@@ -156,10 +166,20 @@ public class UserProduct {
 		this.productOverview = productOverview;
 		this.productDescription = productDescription;
 		this.productDate = productDate;
-		this.productPic = productPic;
+		this.productImage = productImage;
 		this.productCity = productCity;
+		this.productState = productState;
 		this.productFeatures = productFeatures;
 		this.userInfo = userInfo;
+	}
+
+	@Override
+	public String toString() {
+		return "UserProduct [productId=" + productId + ", productTitle=" + productTitle + ", productCategory="
+				+ productCategory + ", productOverview=" + productOverview + ", productDescription="
+				+ productDescription + ", productDate=" + productDate + ", productImage=" + productImage + ", productCity="
+				+ productCity + ", productState=" + productState + ", productFeatures=" + productFeatures
+				+ ", userInfo=" + userInfo + "]";
 	}
 
 	public UserProduct() {

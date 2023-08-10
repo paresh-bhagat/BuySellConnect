@@ -9,4 +9,5 @@ import com.BuySellConnect.web.entities.UserInfo;
 public interface UserInfoRepository extends CrudRepository<UserInfo,String> {
 
 	public List<UserInfo> findBymobileNumber(String mobileNumber);
+	
 }
