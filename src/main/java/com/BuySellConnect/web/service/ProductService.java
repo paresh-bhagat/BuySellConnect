@@ -15,6 +15,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -78,13 +81,6 @@ public class ProductService {
 		List<UserProduct> userProducts = productinforepo.findLatestUserProductByUsername(product.getUserInfo().getUsername());
 		int id = userProducts.get(0).getProductId();
 		addProductFeatures(featureList,id);
-	}
-		
-	// get User info
-	
-	public UserInfo getUserInfo(String userName) {
-		
-		return userinforepo.getUserByUserName(userName);
 	}
 	
 	// this is used for sorting product details to be shown to user
@@ -151,6 +147,50 @@ public class ProductService {
 		String imagepath = "/productimages/" + productDto.getProductImage();
 		productDto.setProductImage(imagepath);
         return productDto;
+	}
+	
+	//get all products
+	public LinkedHashMap<String, List<List<String>>> getAllProducts() throws IOException {
+        return sortMapUsingList(this.productinforepo.findAll());
+    }
+	
+	//delete all features of a product
+	public void deleteFeatures(String productid) {
+		this.productfeaturerepo.deleteByProductId(Integer.parseInt(productid));
+	}
+	
+	//delete product image from host
+	@Transactional
+	private void deleteProductImage(String productid) throws IOException {
+		
+		UserProduct temp = this.productinforepo.findById(Integer.parseInt(productid)).get();
+		UserProductDto productDto = this.modelMapper.map(temp, UserProductDto.class);
+		File saveFile=new ClassPathResource("/static/productimages").getFile();
+		Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + productDto.getProductImage());
+		
+		File imageFile = new File(path.toString());
+		
+		if (imageFile.exists()) {
+            try {
+                if (imageFile.delete()) {
+                	System.out.println("image deleted");
+                } else {
+                    throw new IOException("Failed to delete image file");
+                }
+            } catch (IOException e) {
+            	System.out.println("Caught io exception while deleeting image");
+            }
+        } 
+	}
+	
+	//delete product
+	@Transactional
+	public void deleteProduct(UserInfo user, String productid) throws IOException {
+		
+		deleteFeatures(productid);
+		deleteProductImage(productid);
+		
+		this.productinforepo.deleteById(Integer.parseInt(productid));
 	}
 	
 }

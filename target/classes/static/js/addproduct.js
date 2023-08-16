@@ -7,7 +7,7 @@ function addNewDiv() {
     newDiv.innerHTML = `<div class="row pt-4">
                             <div class="col-2"><p class="fw-light">Title</p></div>
                             <div class="mb-3 pb-2 text-center col-10">
-                                <textarea class="form-control" name="featuretitle" id="exampleFormControlTextarea1" rows="1"
+                                <textarea class="form-control" name="featuretitle" rows="1"
                                 minlength="1" maxlength="20" required></textarea>
                             </div>
                         </div>
@@ -15,7 +15,7 @@ function addNewDiv() {
                         <div class="row">
                             <div class="col-2"><p class="fw-light">Content</p></div>
                             <div class="mb-3 pb-2 text-center col-10">
-                                <textarea class="form-control" name="featurecontent" id="exampleFormControlTextarea1" rows="1"
+                                <textarea class="form-control" name="featurecontent" rows="1"
                                 minlength="1" maxlength="70" required></textarea>
                             </div>
                         </div>

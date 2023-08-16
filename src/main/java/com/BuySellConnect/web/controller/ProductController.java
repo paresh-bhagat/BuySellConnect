@@ -20,6 +20,7 @@ import com.BuySellConnect.web.entities.ProductFeature;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.entities.UserProduct;
 import com.BuySellConnect.web.service.ProductService;
+import com.BuySellConnect.web.service.UserService;
 
 @Controller
 @RequestMapping("/BuySellConnect/user") 
@@ -28,11 +29,21 @@ public class ProductController {
 	@Autowired
 	private ProductService productservice;
 	
+	@Autowired
+	private UserService userservice;
+	
 	// product page
 	@RequestMapping(value="/products",method = RequestMethod.GET)
-	public String products(Principal principal) {
+	public String products(Principal principal,Model model) throws IOException {
 		String name = principal.getName();
-		UserInfo user = this.productservice.getUserInfo(name);
+		UserInfo user = this.userservice.getUserInfo(name);
+		LinkedHashMap<String, List<List<String>>> allproducts = this.productservice.getAllProducts();
+		
+		System.out.println(allproducts);
+		model.addAttribute("products", allproducts);
+		
+		if(allproducts.isEmpty())
+       	 model.addAttribute("noproducts", "No products found");
 		
 		System.out.println("This is the product page");
 		System.out.println(user.getUsername());
@@ -82,7 +93,7 @@ public class ProductController {
 		}
 		
 		String name = principal.getName();
-		UserInfo user = this.productservice.getUserInfo(name);
+		UserInfo user = this.userservice.getUserInfo(name);
 		
 		System.out.println("This is the add product page");
 		System.out.println(product);
@@ -189,10 +200,12 @@ public class ProductController {
 	
 	// delete product
 	@RequestMapping(value="/deleteproduct",method = RequestMethod.GET)
-	public String deleteProduct(@RequestParam String productId, Model model) {
-		//UserProduct product = this.productservice.getProductInfo(productId);
-		//model.addAttribute("product", product);
-		System.out.println("This is the view product page");
-        return "viewproduct";
+	public String deleteProduct(@RequestParam String username,
+			@RequestParam String productId, Principal principal, Model model) throws IOException {
+		System.out.println("This is the delete product page");
+		String name = principal.getName();
+		UserInfo user = this.userservice.getUserInfo(name);
+		this.productservice.deleteProduct(user, productId);
+		return "redirect:/BuySellConnect/user/myproducts";
 	}
 }
