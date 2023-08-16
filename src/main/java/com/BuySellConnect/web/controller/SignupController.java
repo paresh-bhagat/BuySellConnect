@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.SignupService;
 import com.BuySellConnect.web.service.otpService;
@@ -34,51 +33,51 @@ public class SignupController {
 		@RequestMapping(value="/signup",method = RequestMethod.GET)
 		public String signupHandler(Model model) {
 			System.out.println("This is the signup page");
-			model.addAttribute("user", new UserInfo());
+			model.addAttribute("userInfo", new UserInfo());
 			return "signup";
 		}
 		
 		// signup form
 		@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
-		public String handleSignUpForm(@Valid @ModelAttribute("user") UserInfo user,
-				@RequestParam("number") String mobile_number, BindingResult result,
-				HttpSession session, Model model) throws IOException {
+		public String handleSignUpForm(@Valid @ModelAttribute("userInfo") UserInfo user,
+				BindingResult result, HttpSession session, Model model) throws IOException {
 			
 			System.out.println(result.hasErrors());
 			
 			if(result.hasErrors()) {
 				System.out.println(result.getAllErrors());
+				model.addAttribute("userInfo", user);
 				return "signup";
 			}
 			
 			if(signupservice.checkUserName(user.getUsername())) {
 				System.out.println("Username already exist");
 				model.addAttribute("errorMessage", "Username already exist!");
-				return "signup";
-			}
-			
-			if(this.signupservice.isValidMobileNo(mobile_number)==false) {
-				System.out.println("not valid number");
-				model.addAttribute("errorMessage", "Invalid phone number format!");
+				model.addAttribute("userInfo", user);
 				return "signup";
 			}
 				
-			if(signupservice.checkMobileNumber(mobile_number)) {
+			if(signupservice.checkMobileNumber(user.getMobileNumber())) {
 				System.out.println("phonenumber already exist");
 				model.addAttribute("errorMessage", "Mobile number already exist!");
+				model.addAttribute("userInfo", user);
+				return "signup";
+			}
+			
+			if(signupservice.checkEmail(user.getEmail())) {
+				System.out.println("Email already exist");
+				model.addAttribute("errorMessage", "Email already exist!");
+				model.addAttribute("userInfo", user);
 				return "signup";
 			}
 				
-			
 			System.out.println("This is the signup form handler");
 			System.out.println(user.getUsername());
 			System.out.println( passswordEncoder.encode(user.getPassword()));
 			System.out.println(user.getMobileNumber());
-			System.out.println(mobile_number);
 			String password = user.getPassword();
 			
 			user.setPassword(passswordEncoder.encode(password));
-			user.setMobileNumber(mobile_number);
 			user.setRole("ROLE_USER");
 			int attempts = 3;
 			

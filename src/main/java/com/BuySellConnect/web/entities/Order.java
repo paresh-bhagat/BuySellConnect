@@ -18,8 +18,8 @@ public class Order {
 	@Column(name="Order_id")
 	private int orderId;
 	
-	@Column(name="Product_id")
-	private int productId;
+	@Column(name="Ordered_Product_id")
+	private int orderedProductId;
 	
 	@Column(length=70,name="Ordered_By")
 	private String orderedBy;
@@ -30,7 +30,7 @@ public class Order {
 	@Column(length=70,name="Address")
 	private String address;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo userInfo;
 
 	public int getOrderId() {
@@ -39,14 +39,6 @@ public class Order {
 
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
 	}
 
 	public String getOrderedBy() {
@@ -80,17 +72,26 @@ public class Order {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+	
+	public int getOrderedProductId() {
+		return orderedProductId;
+	}
+
+	public void setOrderedProductId(int orderedProductId) {
+		this.orderedProductId = orderedProductId;
+	}
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", productId=" + productId + ", orderedBy=" + orderedBy + ", orderedFrom="
-				+ orderedFrom + ", address=" + address + ", userInfo=" + userInfo + "]";
+		return "Order [orderId=" + orderId + ", orderedProductId=" + orderedProductId + ", orderedBy=" + orderedBy
+				+ ", orderedFrom=" + orderedFrom + ", address=" + address + ", userInfo=" + userInfo + "]";
 	}
 
-	public Order(int orderId, int productId, String orderedBy, String orderedFrom, String address, UserInfo userInfo) {
+	public Order(int orderId, int orderedProductId, String orderedBy, String orderedFrom, String address,
+			UserInfo userInfo) {
 		super();
 		this.orderId = orderId;
-		this.productId = productId;
+		this.orderedProductId = orderedProductId;
 		this.orderedBy = orderedBy;
 		this.orderedFrom = orderedFrom;
 		this.address = address;

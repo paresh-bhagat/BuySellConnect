@@ -5,22 +5,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.BuySellConnect.web.entities.UserInfo;
+import com.BuySellConnect.web.repository.UserInfoRepository;
 
-public class CustomUserInfoService implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
-	private UserInfoRepositoryjpa userinforepojpa;
+	private UserInfoRepository userinforepo;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		UserInfo user = userinforepojpa.getUserByUserName(username);
+		UserInfo user = userinforepo.getUserByUserName(username);
 		
 		if(user==null) {
 			throw new UsernameNotFoundException("Username not found");
 		}
 		
-		CustomUserInfo customeruserinfo = new CustomUserInfo(user);
+		UserDetailsImpl customeruserinfo = new UserDetailsImpl(user);
 		
 		return customeruserinfo;
 	}

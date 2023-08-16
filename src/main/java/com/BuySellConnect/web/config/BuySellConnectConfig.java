@@ -6,10 +6,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.BuySellConnect.web.dao.CustomUserInfoService;
+import com.BuySellConnect.web.dao.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -17,7 +16,7 @@ public class BuySellConnectConfig extends WebSecurityConfigurerAdapter  {
 	
 	@Bean
 	public UserDetailsService getUserDetailService() {
-		return new CustomUserInfoService();
+		return new UserDetailsServiceImpl();
 	}
 	
 	@Bean

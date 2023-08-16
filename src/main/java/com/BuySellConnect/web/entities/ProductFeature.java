@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -22,13 +21,13 @@ public class ProductFeature {
 	@Size(min=1,max=20,message="Feature title between 1 to 20 characters")
 	private String featureTitle;
 	
-	@Column(length=60,name="Feature_Content")
-	@Size(min=1,max=60,message="Feature content between 1 to 60 characters")
+	@Column(length=70,name="Feature_Content")
+	@Size(min=1,max=70,message="Feature content between 1 to 70 characters")
 	private String featureContent;
 	
-	@ManyToOne
-	private UserProduct userProduct;
-
+	@Column(length=20,name="Product_Id")
+	private int productId;
+	
 	public int getFeatureId() {
 		return featureId;
 	}
@@ -53,31 +52,34 @@ public class ProductFeature {
 		this.featureContent = featureContent;
 	}
 
-	public UserProduct getUserProduct() {
-		return userProduct;
-	}
-
-	public void setUserProduct(UserProduct userProduct) {
-		this.userProduct = userProduct;
-	}
-
 	@Override
 	public String toString() {
 		return "ProductFeature [featureId=" + featureId + ", featureTitle=" + featureTitle + ", featureContent="
-				+ featureContent + ", userProduct=" + userProduct + "]";
+				+ featureContent + ", productId=" + productId + "]";
+	}
+
+	public ProductFeature(int featureId,
+			@Size(min = 1, max = 20, message = "Feature title between 1 to 20 characters") String featureTitle,
+			@Size(min = 1, max = 70, message = "Feature content between 1 to 70 characters") String featureContent,
+			int productId) {
+		super();
+		this.featureId = featureId;
+		this.featureTitle = featureTitle;
+		this.featureContent = featureContent;
+		this.productId = productId;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public ProductFeature() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public ProductFeature(int featureId, String featureTitle, String featureContent, UserProduct userProduct) {
-		super();
-		this.featureId = featureId;
-		this.featureTitle = featureTitle;
-		this.featureContent = featureContent;
-		this.userProduct = userProduct;
 	}
 	
 }

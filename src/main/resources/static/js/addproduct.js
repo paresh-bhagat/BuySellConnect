@@ -7,17 +7,19 @@ function addNewDiv() {
     newDiv.innerHTML = `<div class="row pt-4">
                             <div class="col-2"><p class="fw-light">Title</p></div>
                             <div class="mb-3 pb-2 text-center col-10">
-                                <textarea class="form-control" name="title" id="exampleFormControlTextarea1" rows="1"
+                                <textarea class="form-control" name="featuretitle" id="exampleFormControlTextarea1" rows="1"
                                 minlength="1" maxlength="20" required></textarea>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-2"><p class="fw-light">Content</p></div>
                             <div class="mb-3 pb-2 text-center col-10">
-                                <textarea class="form-control" name="feature" id="exampleFormControlTextarea1" rows="1"
+                                <textarea class="form-control" name="featurecontent" id="exampleFormControlTextarea1" rows="1"
                                 minlength="1" maxlength="70" required></textarea>
                             </div>
                         </div>
+
                         <button type="button" class="btn btn-outline-danger m-2 btn-sm" onclick="removeDiv(this)">Delete</button>`;
     
     // Append the new div to the dynamicDivContainer

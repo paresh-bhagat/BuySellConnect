@@ -32,11 +32,11 @@
                 <div class="modal-body p-5 pt-0">
                   <form th:action="@{/BuySellConnect/processsignupform}" method="post">
 					
-					<!--signup failed-->
-					<div th:if="${attempts_exceed}" class="alert alert-danger alert-dismissible fade show" role="alert">
-						<p th:text="${attempts_exceed}"></p>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
+					      <!--signup failed-->
+					          <div th:if="${attempts_exceed}" class="alert alert-danger alert-dismissible fade show" role="alert">
+						          <p th:text="${attempts_exceed}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
 					
                     <div class="form-floating mb-3">
                       <input type="text" 
@@ -44,29 +44,59 @@
                       id="floatingInput" 
                       placeholder="Input" 
                       name="username"
+                      th:value="${userInfo.username}"
                       minlength="1" 
                       maxlength="20" required>
                       <label for="floatingInput">Username</label>
                     </div>
                     
                     <!--for field error-->
-                    <div th:each="error : ${#fields.errors('user.username')}" class="alert alert-warning alert-dismissible fade show" 
-            		role="alert">
-						<p th:text="${error}"></p>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
+                    <div th:each="error : ${#fields.errors('userInfo.username')}" class="alert alert-warning alert-dismissible fade show" 
+            		      role="alert">
+						          <p th:text="${error}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
 					
-					<div class="form-floating mb-3">
+					          <div class="form-floating mb-3">
+                      <input type="email" 
+                      class="form-control rounded-3" 
+                      id="floatingEmail" 
+                      placeholder="Email" 
+                      name="email"
+                      th:value="${userInfo.email}"
+                      pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                      minlength="3" 
+                      maxlength="50" required>
+                      <label for="floatingEmail">Email</label>
+                    </div>
+
+                    <!--for field error-->
+                    <div th:each="error : ${#fields.errors('userInfo.email')}" class="alert alert-warning alert-dismissible fade show" 
+            		      role="alert">
+						          <p th:text="${error}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
+
+                    <div class="form-floating mb-3">
                       <input type="text" 
                       class="form-control rounded-3" 
                       id="floatingNumber" 
                       placeholder="Number" 
-                      name="number"
-                      pattern="[0-9]{10}" 
+                      name="mobileNumber"
+                      th:value="${userInfo.mobileNumber}"
+                      pattern="(0/91)?[7-9][0-9]{9}"
                       minlength="10" 
-                      maxlength="10" required>
+                      maxlength="10"
+                      required>
                       <label for="floatingNumber">Mobile Number</label>
                     </div>
+
+                    <!--for field error-->
+                    <div th:each="error : ${#fields.errors('userInfo.mobileNumber')}" class="alert alert-warning alert-dismissible fade show" 
+            		      role="alert">
+						          <p th:text="${error}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
                     
                     <div class="form-floating mb-3">
                       <input type="password" 
@@ -80,18 +110,18 @@
                     </div>
                     
                     <!--for field error-->
-                    <div th:each="error : ${#fields.errors('user.password')}" class="alert alert-warning alert-dismissible fade show" 
-            		role="alert">
-						<p th:text="${error}"></p>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
+                    <div th:each="error : ${#fields.errors('userInfo.password')}" class="alert alert-warning alert-dismissible fade show" 
+            		      role="alert">
+						          <p th:text="${error}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
 					
-					<!--for other errors-->
-					<div th:if="${errorMessage}" class="alert alert-warning alert-dismissible fade show" 
-					role="alert">
-						<p th:text="${errorMessage}"></p>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
+					          <!--for other errors-->
+					          <div th:if="${errorMessage}" class="alert alert-warning alert-dismissible fade show" 
+					            role="alert">
+						          <p th:text="${errorMessage}"></p>
+						          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					          </div>
 
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
                    

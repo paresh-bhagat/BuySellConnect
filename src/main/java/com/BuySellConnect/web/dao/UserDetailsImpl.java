@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.BuySellConnect.web.entities.UserInfo;
 
-public class CustomUserInfo implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private UserInfo user;
 	
-	public CustomUserInfo(UserInfo user) {
+	public UserDetailsImpl(UserInfo user) {
 		super();
 		this.user = user;
 	}
