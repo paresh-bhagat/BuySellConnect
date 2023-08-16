@@ -15,9 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -161,7 +159,7 @@ public class ProductService {
 	
 	//delete product image from host
 	@Transactional
-	private void deleteProductImage(String productid) throws IOException {
+	public void deleteProductImage(String productid) throws IOException {
 		
 		UserProduct temp = this.productinforepo.findById(Integer.parseInt(productid)).get();
 		UserProductDto productDto = this.modelMapper.map(temp, UserProductDto.class);

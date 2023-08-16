@@ -1,6 +1,7 @@
 package com.BuySellConnect.web.controller;
 
 import java.security.Principal;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,26 +17,20 @@ public class ProfileController {
 	@Autowired
 	private UserService userservice;
 	
+	//profile page handler
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
 	public String profile() {
 		System.out.println("This is the profile page");
         return "profile";
 	}
 	
-	@RequestMapping(value="/deleteaccount",method = RequestMethod.GET)
-	public String deleteAccount() {
-		System.out.println("This is the delete account page");
-        return "redirect:/BuySellConnect";
-	}
-	
 	// delete account
-	@RequestMapping(value="/BuySellConnect/user/deleteaccount",method = RequestMethod.GET)
-	public String deleteAccount(Principal principal,Model model) {
+	@RequestMapping(value="/deleteaccount",method = RequestMethod.GET)
+	public String deleteAccount(Principal principal,Model model) throws Exception {
 		System.out.println("This is delete account page");
 		String name = principal.getName();
 		UserInfo user = this.userservice.getUserInfo(name);
 		this.userservice.deleteAccount(user);
-		model.addAttribute("accountdeleted", "Account deleted successfully");
 		return "redirect:/logout";
 	}
 }

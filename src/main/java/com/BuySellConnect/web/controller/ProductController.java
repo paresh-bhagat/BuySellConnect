@@ -206,6 +206,6 @@ public class ProductController {
 		String name = principal.getName();
 		UserInfo user = this.userservice.getUserInfo(name);
 		this.productservice.deleteProduct(user, productId);
-		return "redirect:/BuySellConnect/user/myproducts";
+		return "redirect:/BuySellConnect/user/products";
 	}
 }
