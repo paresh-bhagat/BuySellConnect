@@ -81,8 +81,34 @@ public class ProductService {
 		addProductFeatures(featureList,id);
 	}
 	
-	// this is used for sorting product details to be shown to user
+	// update product
+	@Transactional
+	public void updateProduct(UserInfo user,UserProduct product,
+			MultipartFile file, List<ProductFeature> featureList ) throws Exception {
+		
+		product.setUserInfo(user);
+		Date date = new Date();
+		product.setProductDate(date);
+		deleteFeatures(Integer.toString(product.getProductId()));
+		
+		if ( file==null || file.isEmpty()==true )
+			System.out.print("image not changed");
+		else {
+			//delete previous image
+			deleteProductImage(Integer.toString(product.getProductId()));
+		    
+		    // save new image
+			SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+			String newimagename = user.getUsername() + "-" + formatDate.format(date) + ".jpg";
+			saveImage(newimagename,file);
+			product.setProductImage(newimagename);
+		}
+		
+		this.productinforepo.save(product);
+		addProductFeatures(featureList,product.getProductId());
+	}
 	
+	// this is used for sorting product details to be shown to user
 	public LinkedHashMap<String, List<List<String>>> sortMapUsingList(List<UserProduct> products) throws IOException{
 			
 		HashMap<String,List<List<String>>> map = new HashMap<String,List<List<String>>>();

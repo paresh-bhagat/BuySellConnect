@@ -167,10 +167,103 @@ public class ProductController {
 	}
 	
 	// edit product
-	@RequestMapping(value="/editproduct",method = RequestMethod.GET)
-	public String editProduct(@RequestParam String productId) {
-		System.out.println("This is the edit product page");
-        return "editproduct";
+	@RequestMapping(value="/updateproduct",method = RequestMethod.GET)
+	public String updateProduct(@RequestParam String username,
+	@RequestParam String productId, Principal principal, Model model) {
+		System.out.println("This is the update product page");
+		UserProductDto product = this.productservice.getProductInfo(productId);
+		System.out.println(product);
+		List<ProductFeature> features = this.productservice.getProductFeatures(productId);
+		System.out.println(features);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("features", features);
+        return "updateproduct";
+	}
+	
+	// edit product form
+	@RequestMapping(value="/processupdateproductform",method = RequestMethod.POST)
+	public String updateProductForm(@Valid @ModelAttribute("product") UserProduct product,
+			@RequestParam("featuretitle") String[] featuretitleArray,@RequestParam("featurecontent") String[] featurecontentArray,
+			@RequestParam("productpic") MultipartFile file,
+			@RequestParam String productId, Principal principal,
+			BindingResult result,Model model) throws Exception {
+		System.out.println("This is the update product form page");
+		System.out.println(result.hasErrors());
+		
+		if(result.hasErrors()) {
+			System.out.println(result.getAllErrors());
+			model.addAttribute("product", product);
+			return "updateproduct";
+		}
+		UserProductDto productold = this.productservice.getProductInfo(productId);
+		String name = principal.getName();
+		UserInfo user = this.userservice.getUserInfo(name);
+		System.out.println(product);
+		
+		for (int i = 0; i < featuretitleArray.length; i++) {
+			Boolean errors=false;
+			
+            System.out.println(featuretitleArray[i]);
+            
+            if(featuretitleArray[i].length() < 1 || featuretitleArray[i].length() > 20) {
+            	errors=true;
+            	model.addAttribute("titleError", "Feature title between 1 to 20 characters");
+            }
+            
+            System.out.println(featurecontentArray[i]);
+            if(featurecontentArray[i].length() < 1 || featurecontentArray[i].length() > 70) {
+            	errors=true;
+            	model.addAttribute("featureError", "Feature content between 1 to 70 characters");
+            }
+            
+            if(errors) {
+            	model.addAttribute("product", product);
+            	System.out.println(product.getProductDescription());
+        		System.out.println(product.getProductOverview());
+    			return "updateproduct";
+            }
+        }
+
+		//process file
+		if(!(file==null || file.isEmpty()==true )){
+			if(file.getSize() > 5242880)
+			{
+				model.addAttribute("ImageError","Image size is greater than 5MB");
+				model.addAttribute("product", product);
+				System.out.println(product.getProductDescription());
+				System.out.println(product.getProductOverview());
+				return "updateproduct";
+			}
+				
+			System.out.println(file.getContentType());
+			if( !(file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png")) )
+			{
+				model.addAttribute("ImageError","Uploaded file not in jpeg/png format");
+				model.addAttribute("product", product);
+				
+				System.out.println(product.getProductDescription());
+				System.out.println(product.getProductOverview());
+				return "updateproduct";
+			}
+		}
+
+		List<ProductFeature> featureList = new ArrayList<>();
+		
+		for (int i = 0; i < featuretitleArray.length; i++) {
+			ProductFeature feature = new ProductFeature();
+			feature.setFeatureTitle(featuretitleArray[i]);
+			feature.setFeatureContent(featurecontentArray[i]);
+			featureList.add(feature);
+        }
+		
+		product.setProductId(Integer.parseInt(productId));
+		product.setProductImage(productold.getProductImage().replace("/productimages/", ""));
+		this.productservice.updateProduct(user, product, file, featureList);
+		model.addAttribute("updateProductSuccess","Product Successfully updated");
+		model.addAttribute("product", product);
+     
+	    return "updateproduct";
 	}
 	
 	// view product

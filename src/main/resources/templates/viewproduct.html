@@ -136,8 +136,8 @@
 
       <div class="gap-3 d-flex justify-content-center m-5">
 
-        <a th:href="@{'/BuySellConnect/user/editproduct?username=' + ${username} + '&productId=' + ${product.productId} }"> 
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Edit</button>
+        <a th:href="@{'/BuySellConnect/user/updateproduct?username=' + ${username} + '&productId=' + ${product.productId} }"> 
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Update</button>
         </a>
 
         <a th:href="@{'/BuySellConnect/user/deleteproduct?username=' + ${username} + '&productId=' + ${product.productId} }">

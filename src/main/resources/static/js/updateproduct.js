@@ -3,7 +3,7 @@ function addNewDiv() {
     
     // Create a new div element
     const newDiv = document.createElement('div');
-    newDiv.className = 'container border rounded-5';
+    newDiv.className = 'container border rounded-5 pt-2 mt-2';
     newDiv.innerHTML = `<div class="row pt-4">
                             <div class="col-2"><p class="fw-light">Title</p></div>
                             <div class="mb-3 pb-2 text-center col-10">

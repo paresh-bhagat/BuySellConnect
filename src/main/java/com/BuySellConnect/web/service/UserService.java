@@ -1,11 +1,7 @@
 package com.BuySellConnect.web.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.BuySellConnect.web.entities.UserInfo;
@@ -29,9 +25,6 @@ public class UserService {
 	public void deleteAccount(UserInfo user) throws IOException {
 		
 		// first delete all features and images
-		
-		//List<String> productids = new ArrayList<>();
-		
 		for(int i=0; i<user.getProducts().size();i++) {
 			this.productservice.deleteFeatures( Integer.toString(user.getProducts().get(i).getProductId()));
 			this.productservice.deleteProductImage( Integer.toString(user.getProducts().get(i).getProductId()));
