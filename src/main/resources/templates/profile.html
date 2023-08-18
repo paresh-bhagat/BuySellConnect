@@ -17,7 +17,7 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
     
   </head>
-  <body>
+  <body class="home">
     
     <header data-bs-theme="dark">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -55,14 +55,19 @@
     <main>
 
         <div class="container">
-
+            
             <div class="rounded">
               <div class="py-5">
-                <h1 class="display-5 fw-normal">Welcome </h1>
-                <p class="fs-5">This example shows how responsive offcanvas menus work within the navbar. 
-                </p>
+                <h1 class="display-5 fw-normal">Welcome p</h1>
+                <p class="fs-5">You have 3 product(s), 3 Interests and 3 Requests.</p>
               </div>
             </div>
+
+             <!--password changed-->
+					  <div th:if="${changepasswordsuccessful}" class="alert alert-success alert-dismissible fade show" role="alert">
+						  <p th:text="${changepasswordsuccessful}"></p>
+						  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					  </div>
             
             <a th:href="@{/BuySellConnect/user/orders}" style="text-decoration: none">
               <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
@@ -80,7 +85,7 @@
               </div>
             </a>
 
-            <a th:href="@{/BuySellConnect/user/myproducts}" style="text-decoration: none">
+            <a th:href="@{/BuySellConnect/user/changepassword}" style="text-decoration: none">
               <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
                   <div class="lh-1">
                       <h2 class="m-1 text-white lh-1">Change Password</h2>

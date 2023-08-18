@@ -67,8 +67,9 @@ public class UserService {
 	}
 	
 	// change password
-	public void changePassword(UserInfo user, String newPassword) {
+	public void changePassword(String username, String newPassword) {
 		
+		UserInfo user = getUserInfo(username);
 		user.setPassword(passswordEncoder.encode(newPassword));
 		userinforepo.save(user);
 	}
@@ -115,6 +116,11 @@ public class UserService {
 		if( temp.isEmpty() || temp.size()!=1 )
 			return null;
 		return temp.get(0);
+	}
+
+	public boolean checkPassword(String username, String newpassword) {
+		UserInfo user = getUserInfo(username);
+		return passswordEncoder.matches(newpassword, user.getPassword());
 	}
 		
 }
