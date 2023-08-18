@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.BuySellConnect.web.entities.UserInfo;
-import com.BuySellConnect.web.service.SignupService;
 import com.BuySellConnect.web.service.UserService;
 import com.BuySellConnect.web.service.otpService;
 
@@ -18,9 +17,6 @@ import com.BuySellConnect.web.service.otpService;
 @RequestMapping("/BuySellConnect")
 public class LoginController {
 		
-		@Autowired
-		private SignupService signupservice;
-	
 		@Autowired
 		private otpService otpservice;
 		
@@ -61,15 +57,15 @@ public class LoginController {
 			
 			UserInfo useroriginal = new UserInfo();
 			
-			if(signupservice.checkUserName(user.getUsername())) {
+			if(userservice.checkUserName(user.getUsername())) {
 				System.out.println("Username exist");
 				useroriginal = this.userservice.getUserInfo(user.getUsername());
 				System.out.println(useroriginal);
 				
 			}
-			else if(signupservice.checkEmail(user.getEmail())) {
+			else if(userservice.checkEmail(user.getEmail())) {
 				System.out.println("Email already exist");
-				useroriginal = this.signupservice.getInfobyEmail(user.getEmail());
+				useroriginal = this.userservice.getInfobyEmail(user.getEmail());
 			}
 			else {
 				System.out.println("nothing exist");

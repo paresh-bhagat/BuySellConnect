@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.BuySellConnect.web.entities.UserInfo;
-import com.BuySellConnect.web.service.SignupService;
 import com.BuySellConnect.web.service.UserService;
 
 @Controller
 @RequestMapping("/BuySellConnect")
 public class otpController {
-	
-	@Autowired
-	private SignupService signupservice;
 	
 	@Autowired
 	private UserService userservice;
@@ -86,7 +82,7 @@ public class otpController {
 			session.removeAttribute("otpphone");
 			session.removeAttribute("otpemail");
 			session.removeAttribute("attempts");
-			signupservice.createAccount(user);
+			userservice.createAccount(user);
 		}
 		else {
 			

@@ -1,7 +1,6 @@
 package com.BuySellConnect.web.controller;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.BuySellConnect.web.entities.UserInfo;
-import com.BuySellConnect.web.service.SignupService;
+import com.BuySellConnect.web.service.UserService;
 import com.BuySellConnect.web.service.otpService;
 
 @Controller
@@ -21,10 +20,10 @@ import com.BuySellConnect.web.service.otpService;
 public class SignupController {
 	
 		@Autowired
-		private SignupService signupservice;
+		private otpService otpservice;
 		
 		@Autowired
-		private otpService otpservice;
+		private UserService userservice;
 		
 		@Autowired
 		private BCryptPasswordEncoder passswordEncoder;
@@ -51,21 +50,21 @@ public class SignupController {
 				return "signup";
 			}
 			
-			if(signupservice.checkUserName(user.getUsername())) {
+			if(userservice.checkUserName(user.getUsername())) {
 				System.out.println("Username already exist");
 				model.addAttribute("errorMessage", "Username already exist!");
 				model.addAttribute("userInfo", user);
 				return "signup";
 			}
 				
-			if(signupservice.checkMobileNumber(user.getMobileNumber())) {
+			if(userservice.checkMobileNumber(user.getMobileNumber())) {
 				System.out.println("phonenumber already exist");
 				model.addAttribute("errorMessage", "Mobile number already exist!");
 				model.addAttribute("userInfo", user);
 				return "signup";
 			}
 			
-			if(signupservice.checkEmail(user.getEmail())) {
+			if(userservice.checkEmail(user.getEmail())) {
 				System.out.println("Email already exist");
 				model.addAttribute("errorMessage", "Email already exist!");
 				model.addAttribute("userInfo", user);
