@@ -46,6 +46,16 @@ public class SignupService {
 		return true;
 	}
 	
+	// get user details by email
+	public UserInfo getInfobyEmail(String email) {
+		
+		List<UserInfo> temp = userinforepo.findByEmail(email);
+		System.out.println(temp);
+		if( temp.isEmpty() || temp.size()!=1 )
+			return null;
+		return temp.get(0);
+	}
+	
 	
 
 }

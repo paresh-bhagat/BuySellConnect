@@ -32,7 +32,13 @@
           
                 <div class="modal-body p-5 pt-0">
                   <form th:action="@{/BuySellConnect/login}" method="post" th:object="${user}">
-					
+          
+          <!--password changed-->
+					<div th:if="${changepasswordsuccessful}" class="alert alert-success alert-dismissible fade show" role="alert">
+						<p th:text="${changepasswordsuccessful}"></p>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+
 					<!--for signup-->
 					<div th:if="${SignUpMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
 						<p th:text="${SignUpMessage}"></p>
@@ -91,6 +97,7 @@
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Login</button>
                    
                     <div class="mt-3">
+                      <p><a th:href="@{/BuySellConnect/forgotpassword}">Forgot Password</a></p>
                       <p>New user? <a th:href="@{/BuySellConnect/signup}">Signup</a></p>
                       <a th:href="@{/BuySellConnect}">Home</a>
                     </div>

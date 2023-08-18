@@ -42,6 +42,7 @@ public class SignupController {
 		public String handleSignUpForm(@Valid @ModelAttribute("userInfo") UserInfo user,
 				BindingResult result, HttpSession session, Model model) throws IOException {
 			
+			
 			System.out.println(result.hasErrors());
 			
 			if(result.hasErrors()) {
@@ -82,19 +83,23 @@ public class SignupController {
 			int attempts = 3;
 			
 			// send otp
-			int[] otp = otpservice.getOtp();
-			Boolean sendOtpStatus =  true; //otpservice.sendOtpSms(user.getMobileNumber(), otp);
+			int[] otpPhone = otpservice.getOtp();
+			int[] otpEmail = otpservice.getOtp();
+			Boolean sendOtpStatusPhone =  true; //otpservice.sendOtpSms(user.getMobileNumber(), otp);
+			Boolean sendOtpStatusEmail =  true;
 			
-			otp[0]=0; otp[1]=0;otp[2]=0;otp[3]=0;
+			otpPhone[0]=0; otpPhone[1]=0;otpPhone[2]=0;otpPhone[3]=0;
+			otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;
 			
-			if(sendOtpStatus==false) {
+			if(sendOtpStatusPhone==false || sendOtpStatusEmail==false) {
 				System.out.println("Otp not send");
 				model.addAttribute("errorMessage", "Send OTP failed.Please try again!");
 				return "signup";
 			}
 				
 			session.setAttribute("user", user);
-			session.setAttribute("otp",otp);
+			session.setAttribute("otpphone",otpPhone);
+			session.setAttribute("otpemail",otpEmail);
 			session.setAttribute("attempts", attempts);
 			
 			return "redirect:/BuySellConnect/enterotp"; 

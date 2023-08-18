@@ -30,12 +30,10 @@
                     <h6>Please enter the one time password</h6>  
                   </div>
 
-                  <div class="pb-4"><span>A 4-digit code has been sent to email and </span><small th:text="'******' + ${last4digits}"></small></div>
+                  <div class="pb-4"><span>A 4-digit code has been sent to email</div>
             
                   <div class="modal-body p-5 pt-0">
-                    <form th:action="@{/BuySellConnect/processotpform}" method="post">
-                      
-                      <div><p>Mobile</p></div>
+                    <form th:action="@{/BuySellConnect/processemailotpform}" method="post">
 
                       <div class="form-floating mb-3">
                         <div class="inputs d-flex flex-row justify-content-center mt-2 otp">
@@ -43,17 +41,6 @@
                             <input class="m-2 text-center form-control rounded" type="number" id="second" name="second" min="0" max="9" required/> 
                             <input class="m-2 text-center form-control rounded" type="number" id="third" name="third" min="0" max="9" required/> 
                             <input class="m-2 text-center form-control rounded" type="number" id="fourth" name="fourth" min="0" max="9" required/>
-                        </div>
-                      </div>
-
-                      <div><p>Email</p></div>
-
-                      <div class="form-floating mb-3">
-                        <div class="inputs d-flex flex-row justify-content-center mt-2 otp">
-                            <input class="m-2 text-center form-control rounded" type="number" id="efirst" name="efirst" min="0" max="9" required/> 
-                            <input class="m-2 text-center form-control rounded" type="number" id="esecond" name="esecond" min="0" max="9" required/> 
-                            <input class="m-2 text-center form-control rounded" type="number" id="ethird" name="ethird" min="0" max="9" required/> 
-                            <input class="m-2 text-center form-control rounded" type="number" id="efourth" name="efourth" min="0" max="9" required/>
                         </div>
                       </div>
   
