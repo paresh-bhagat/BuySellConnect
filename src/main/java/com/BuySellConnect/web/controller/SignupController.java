@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.UserService;
+import com.BuySellConnect.web.service.emailService;
 import com.BuySellConnect.web.service.otpService;
 
 @Controller
@@ -27,6 +28,9 @@ public class SignupController {
 		
 		@Autowired
 		private BCryptPasswordEncoder passswordEncoder;
+		
+		@Autowired
+	    private emailService emailservice;
 	
 		// signup page
 		@RequestMapping(value="/signup",method = RequestMethod.GET)
@@ -84,8 +88,12 @@ public class SignupController {
 			// send otp
 			int[] otpPhone = otpservice.getOtp();
 			int[] otpEmail = otpservice.getOtp();
-			Boolean sendOtpStatusPhone =  true; //otpservice.sendOtpSms(user.getMobileNumber(), otp);
-			Boolean sendOtpStatusEmail =  true;
+			
+			
+			Boolean sendOtpStatusEmail =  true; //emailservice.sendOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
+			
+			Boolean sendOtpStatusPhone =  true; //otpservice.sendOtpSms(user.getMobileNumber(), otpPhone);
+			
 			
 			otpPhone[0]=0; otpPhone[1]=0;otpPhone[2]=0;otpPhone[3]=0;
 			otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;

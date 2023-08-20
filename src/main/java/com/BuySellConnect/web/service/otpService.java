@@ -8,10 +8,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class otpService {
+	
+	@Value("${apikeyFast2sms}")
+	private String apikey;
 	
 	public int[] createOtp() {
 		int[] arr=new int [4];
@@ -25,7 +29,6 @@ public class otpService {
 	
 	public Boolean sendOtpSms(String mobile_number,int[] otp) throws IOException {
 		
-		String apikey = "mieyhLkcvgSu2lFTH5Yx63NI9Et0ZjoQnBfwOC4XRWDpGMUsKJaw3CpzcfMStAIgGlkNKO6n0dXvm5B4";
 		String message = String.valueOf(otp[0]) + String.valueOf(otp[1]) + String.valueOf(otp[2]) + String.valueOf(otp[3]) 
 						+ " is your OTP for signup to BuySellConnect";
 		message = URLEncoder.encode(message, "UTF-8");
