@@ -11,18 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.UserService;
-import com.BuySellConnect.web.service.otpService;
+import com.BuySellConnect.web.service.emailService;
+import com.BuySellConnect.web.service.smsService;
 
 @Controller
 @RequestMapping("/BuySellConnect")
 public class LoginController {
 		
 		@Autowired
-		private otpService otpservice;
+		private smsService smsservice;
 		
 		@Autowired
 		private UserService userservice;
-
+		
+		@Autowired
+	    private emailService emailservice;
+		
 		// login page
 		@RequestMapping(value="/login",method = RequestMethod.GET)
 		public String loginHandler(Model model) {
@@ -77,10 +81,10 @@ public class LoginController {
 			int attempts = 3;
 			
 			// send otp to email
-			int[] otpEmail = otpservice.getOtp();
-			Boolean sendOtpStatusEmail =  true;
+			int[] otpEmail = this.smsservice.getOtp();
 			
-			otpEmail[0]=0; otpEmail[1]=0;otpEmail[2]=0;otpEmail[3]=0;
+			Boolean sendOtpStatusEmail =  this.emailservice.sendForgotPasswordOTPEmail(useroriginal.getUsername(), 
+					useroriginal.getEmail(),otpEmail);
 			
 			if(sendOtpStatusEmail==false) {
 				System.out.println("Otp not send");

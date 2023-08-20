@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.service.UserService;
 import com.BuySellConnect.web.service.emailService;
-import com.BuySellConnect.web.service.otpService;
+import com.BuySellConnect.web.service.smsService;
 
 @Controller
 @RequestMapping("/BuySellConnect")
 public class SignupController {
 	
 		@Autowired
-		private otpService otpservice;
+		private smsService smsservice;
 		
 		@Autowired
 		private UserService userservice;
@@ -77,26 +77,26 @@ public class SignupController {
 				
 			System.out.println("This is the signup form handler");
 			System.out.println(user.getUsername());
-			System.out.println( passswordEncoder.encode(user.getPassword()));
+			System.out.println( this.passswordEncoder.encode(user.getPassword()));
 			System.out.println(user.getMobileNumber());
 			String password = user.getPassword();
 			
-			user.setPassword(passswordEncoder.encode(password));
+			user.setPassword(this.passswordEncoder.encode(password));
 			user.setRole("ROLE_USER");
 			int attempts = 3;
 			
 			// send otp
-			int[] otpPhone = otpservice.getOtp();
-			int[] otpEmail = otpservice.getOtp();
+			int[] otpPhone = this.smsservice.getOtp();
+			int[] otpEmail = this.smsservice.getOtp();
 			
 			
-			Boolean sendOtpStatusEmail =  true; //emailservice.sendOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
+			Boolean sendOtpStatusEmail =  this.emailservice.sendSignupOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
 			
-			Boolean sendOtpStatusPhone =  true; //otpservice.sendOtpSms(user.getMobileNumber(), otpPhone);
+			Boolean sendOtpStatusPhone =  true; //this.smsservice.sendOtpSms(user.getMobileNumber(), otpPhone);
 			
 			
 			otpPhone[0]=0; otpPhone[1]=0;otpPhone[2]=0;otpPhone[3]=0;
-			otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;
+			//otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;
 			
 			if(sendOtpStatusPhone==false || sendOtpStatusEmail==false) {
 				System.out.println("Otp not send");

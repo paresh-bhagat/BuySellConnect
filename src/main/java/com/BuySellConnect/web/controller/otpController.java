@@ -144,7 +144,12 @@ public class otpController {
 				session.removeAttribute("user");
 				session.removeAttribute("otpemail");
 				session.removeAttribute("attempts");
-				userservice.changePasswordRandom(user);
+				Boolean changepasswordstatus = userservice.changePasswordRandom(user);
+				if(changepasswordstatus==false) {
+					model.addAttribute("user", new UserInfo());
+					session.setAttribute("somethingwrong", "Something went wrong");
+					return "forgotpassword";
+				}
 			}
 			else {
 				

@@ -21,8 +21,10 @@ public class UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passswordEncoder;
-
 	
+	@Autowired
+    private emailService emailservice;
+
 	// get User info
 	public UserInfo getUserInfo(String userName) {
 		return userinforepo.getUserByUserName(userName);
@@ -37,7 +39,10 @@ public class UserService {
 			this.productservice.deleteProductImage( Integer.toString(user.getProducts().get(i).getProductId()));
 		}
 		
+		String username = user.getUsername();
+		String email = user.getEmail();
 		userinforepo.delete(user);
+		this.emailservice.sendAccountDeletedEmail(username, email);
     }
 	
 	
@@ -59,11 +64,17 @@ public class UserService {
 	}
 	
 	// generate and save new password
-	public void changePasswordRandom(String username) {
+	public boolean changePasswordRandom(String username) {
 		
 		UserInfo user = getUserInfo(username);
-		user.setPassword(passswordEncoder.encode(generateRandomPassword()));
+		String newpassword = generateRandomPassword();
+		user.setPassword(passswordEncoder.encode(newpassword));
+		
+		Boolean sendOtpStatusEmail =  emailservice.sendNewPasswordEmail(user.getUsername(), user.getEmail(),newpassword);
+		if(sendOtpStatusEmail==false)
+			return false;
 		userinforepo.save(user);
+		return true;
 	}
 	
 	// change password
@@ -72,11 +83,13 @@ public class UserService {
 		UserInfo user = getUserInfo(username);
 		user.setPassword(passswordEncoder.encode(newPassword));
 		userinforepo.save(user);
+		this.emailservice.sendPasswordChangeEmail(user.getUsername(),user.getEmail());
 	}
 	
 	//create account
 	public void createAccount(UserInfo user) {
 		userinforepo.save(user);
+		this.emailservice.sendAccountCreationEmail(user.getUsername(), user.getEmail());
 	}
 		
 	//check is username already exists
@@ -117,10 +130,11 @@ public class UserService {
 			return null;
 		return temp.get(0);
 	}
-
+	
+	//check new and old password
 	public boolean checkPassword(String username, String newpassword) {
 		UserInfo user = getUserInfo(username);
 		return passswordEncoder.matches(newpassword, user.getPassword());
 	}
-		
+	
 }
