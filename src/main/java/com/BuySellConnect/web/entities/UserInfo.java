@@ -2,7 +2,6 @@ package com.BuySellConnect.web.entities;
 
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,28 +42,18 @@ public class UserInfo {
 	private String role;
 	
 	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-	private List<Order> orders;
+	private List<Interest> myinterests;
 
 	// add product
 	
 	public void addProduct(UserProduct product){
 		this.products.add(product);
 	}
-		
-	// remove product
-	public void removeProduct(int i){
-		this.products.remove(i);
-	}
 	
-	// add product
+	// add interests
 	
-	public void addOrder(Order order){
-		this.orders.add(order);
-	}
-			
-	// remove product
-	public void removeOrder(int i){
-		this.orders.remove(i);
+	public void addInterestProduct(Interest interest){
+		this.myinterests.add(interest);
 	}
 
 	public String getUsername() {
@@ -114,26 +103,20 @@ public class UserInfo {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public List<Order> getOrders() {
-		return orders;
+	
+	public List<Interest> getMyinterests() {
+		return myinterests;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfo [username=" + username + ", password=" + password + ", mobileNumber=" + mobileNumber
-				+ ", email=" + email + ", products=" + products + ", role=" + role + ", orders=" + orders + "]";
+	public void setMyinterests(List<Interest> myinterests) {
+		this.myinterests = myinterests;
 	}
 
 	public UserInfo(@Size(min = 1, max = 20, message = "Username between 1 to 20 characters") String username,
 			@Size(min = 1, max = 20, message = "Password between 1 to 20 characters") String password,
 			@Pattern(regexp = "(0/91)?[7-9][0-9]{9}", message = "Invalid phone number!") String mobileNumber,
 			@Size(min = 3, max = 50, message = "Email between 1 to 50 characters") @Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Invalid email id!") String email,
-			List<UserProduct> products, String role, List<Order> orders) {
+			List<UserProduct> products, String role, List<Interest> myinterests) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -141,14 +124,22 @@ public class UserInfo {
 		this.email = email;
 		this.products = products;
 		this.role = role;
-		this.orders = orders;
+		this.myinterests = myinterests;
 	}
+	
 
 	public UserInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	@Override
+	public String toString() {
+		return "UserInfo [username=" + username + ", password=" + password + ", mobileNumber=" + mobileNumber
+				+ ", email=" + email + ", products=" + products + ", role=" + role + ", myinterests=" + myinterests
+				+ "]";
+	}
+
 	@Override
 	public boolean equals(Object o) {
 	    if (this == o) return true;

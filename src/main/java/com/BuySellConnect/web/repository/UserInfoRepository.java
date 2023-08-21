@@ -15,4 +15,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String> {
 	
 	public List<UserInfo> findByEmail(String email);
 	
+	public boolean existsByUsernameAndMyinterestsInterestedProductId(String username, int interestedProductId);
+	
 }

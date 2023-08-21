@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto" xmlns:th="http://www.thymeleaf.org" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.111.3">
+    <title>BuySellConnect</title>
+
+    <!--bootstrap css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    
+    <!--mycss-->
+    <link rel="stylesheet" th:href="@{/css/myinterests.css}">
+	
+	<!--favicon-->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+    
+  </head>
+  <body style="padding-top: 3rem;">
+    
+  <header data-bs-theme="dark">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">BuySellConnect</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+			
+         <li class="nav-item">
+          	<a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/products}">Products</a>
+         </li>
+        
+         <li class="nav-item">
+           <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/myproducts}">MyProducts</a>
+         </li>
+
+         <li class="nav-item">
+           <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/profile}">Profile</a>
+         </li>
+
+        </ul>
+        
+      </div>
+    </div>
+  	</nav>
+	</header>
+
+	<main>
+
+    <div class="container">
+
+      <!--for cancel success-->
+			<div th:if="${interestdeleted}" class="alert alert-success alert-dismissible fade show pt-4 mt-4" role="alert">
+        <p th:text="${interestdeleted}"></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+        <h2 class="pb-2 border-bottom">My Interests</h2>
+
+        <!--for no interests-->
+        <div th:if="${nointerests}" class="alert alert-info alert-dismissible fade show pt-4 mt-4" role="alert">
+          <p th:text="${nointerests}"></p>
+        </div>
+
+        <div th:each="feature : ${features}" class="d-flex text-body-secondary p-3 general rounded shadow-sm text-white mb-3">
+          <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="80" height="80" 
+            xmlns="http://www.w3.org/2000/svg" role="img" 
+            aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" 
+            focusable="false"><title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#007bff"/>
+            <image width="100%" height="100%" th:attr="'xlink:href'=${feature[5]}" clip-path="url(#circleView)"/>
+          </svg>
+          
+          <p class="pb-3 mb-0 small">
+            <strong class="d-block text-gray-dark" th:text="${feature[4]}"></strong>
+            <span>
+              <span th:text="'by ' + ${feature[2]}"></span><br />
+              <span th:text="'Requested on ' + ${feature[3]}"></span><br />
+              <span th:text="'Request id-' + ${feature[0]}"></span><br />
+            </span>
+          </p>
+
+          <div class="ms-auto">
+            <a th:href="@{'/BuySellConnect/user/viewproduct?username=' + ${feature[2]} + '&productId=' + ${feature[1]} }">
+              <button class="btn btn-outline-info me-2 btn-sm">View Product</button></a>
+            <a th:href="@{'/BuySellConnect/user/deleteinterest?username=' + ${feature[2]} + '&interestId=' + ${feature[0]} }">
+              <button class="btn btn-outline-danger btn-sm">Cancel</button></a>
+          </div>
+        </div>
+   
+      </div>
+  
+    </div>
+
+	</main>
+
+	 <!--bootstrap js-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+  </body>
+</html>

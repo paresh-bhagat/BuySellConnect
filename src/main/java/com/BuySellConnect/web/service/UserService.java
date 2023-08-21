@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.BuySellConnect.web.entities.UserInfo;
+import com.BuySellConnect.web.repository.InterestRepository;
 import com.BuySellConnect.web.repository.UserInfoRepository;
 
 @Service
@@ -21,6 +22,9 @@ public class UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passswordEncoder;
+	
+	@Autowired
+	private InterestRepository interestrepo;
 	
 	@Autowired
     private emailService emailservice;
@@ -42,6 +46,7 @@ public class UserService {
 		String username = user.getUsername();
 		String email = user.getEmail();
 		userinforepo.delete(user);
+		this.interestrepo.deleteByProductSeller(username);
 		this.emailservice.sendAccountDeletedEmail(username, email);
     }
 	
@@ -135,6 +140,11 @@ public class UserService {
 	public boolean checkPassword(String username, String newpassword) {
 		UserInfo user = getUserInfo(username);
 		return passswordEncoder.matches(newpassword, user.getPassword());
+	}
+	
+	//check if product already added to interest
+	public boolean checkProductInterest(String username, String productId) {
+		return this.userinforepo.existsByUsernameAndMyinterestsInterestedProductId(username, Integer.parseInt(productId));
 	}
 	
 }

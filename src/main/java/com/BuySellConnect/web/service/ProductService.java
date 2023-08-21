@@ -25,6 +25,7 @@ import com.BuySellConnect.web.dto.UserProductDto;
 import com.BuySellConnect.web.entities.ProductFeature;
 import com.BuySellConnect.web.entities.UserInfo;
 import com.BuySellConnect.web.entities.UserProduct;
+import com.BuySellConnect.web.repository.InterestRepository;
 import com.BuySellConnect.web.repository.ProductFeatureRepository;
 import com.BuySellConnect.web.repository.UserInfoRepository;
 import com.BuySellConnect.web.repository.UserProductRepository;
@@ -40,6 +41,9 @@ public class ProductService {
 
 	@Autowired
 	private ProductFeatureRepository productfeaturerepo;
+	
+	@Autowired
+	private InterestRepository interestrepo;
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -209,12 +213,13 @@ public class ProductService {
 	
 	//delete product
 	@Transactional
-	public void deleteProduct(UserInfo user, String productid) throws IOException {
+	public void deleteProduct(String productid) throws IOException {
 		
 		deleteFeatures(productid);
 		deleteProductImage(productid);
 		
 		this.productinforepo.deleteById(Integer.parseInt(productid));
+		this.interestrepo.deleteByInterestedProductId(Integer.parseInt(productid));
 	}
 	
 }

@@ -1,0 +1,14 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+.general {
+  background: #e9e6e7;
+  transition: background-color 2ms ease-out 100ms
+}
+
+.general:hover {
+  background-color: #b0aaae;
+}
+  

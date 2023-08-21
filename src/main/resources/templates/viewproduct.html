@@ -45,10 +45,6 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/myproducts}">MyProducts</a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/orders}">MyOrders</a>
-        </li>
 
         <li class="nav-item">
           <a class="nav-link" aria-current="page" th:href="@{/BuySellConnect/user/profile}">Profile</a>
@@ -65,6 +61,11 @@
 
   <div class="container marketing">
 
+    <!--interestadded-->
+    <div th:if="${interestadded}" class="alert alert-success alert-dismissible fade show pt-4 mt-4" role="alert">
+      <p th:text="${interestadded}"></p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <div class="row featurette px-4 pt-5 mt-5 mb-2">
       <div class="col-md-7 order-md-2 order-xs-1">
@@ -72,11 +73,15 @@
         <p class="lead" th:text="${product.productOverview}"></p>
         
         <p th:text="'Rs ' + ${product.productPrice}"></p>
-
-        <p class="fw-light pb-3" th:text="'by ' + ${username} + ',in ' + ${product.productCategory} + 
-        ', ' + ${product.productCity} + ',' + ${product.productState} + ', Listed on ' 
-        + ${#dates.format(product.productDate, 'dd-MM-yyyy')}"></p>
-
+        <p class="fw-light">
+          <span>
+            <span th:text="'by ' + ${username}"></span><br />
+            <span th:text="'in ' + ${product.productCategory}"></span><br />
+            <span th:text="${product.productCity} + ',' + ${product.productState}"></span><br />
+            <span th:text="'Listed on ' + ${#dates.format(product.productDate, 'dd-MM-yyyy')}"></span><br />
+            <span th:text="'Product Id : ' + ${product.productId}"></span><br />
+          </span>
+        </p> 
       </div>
 
       <div class="col-md-5 order-md-1 order-xs-2">
@@ -92,12 +97,22 @@
           />
         </svg>
 
-        <!--order product button-->
+        <!--notify seller button-->
         <div th:if="${buyer}" class="gap-3 d-flex justify-content-center m-5">
-          <a th:href="@{'/BuySellConnect/user/orderproduct?productId=' + ${product.productId} }">
-            <button type="button" class="btn btn-outline-info btn-lg px-4">Order</button>
+          <a th:href="@{'/BuySellConnect/user/addinterest?username=' + ${username} + '&productId=' + ${product.productId} }">
+          <button type="button" class="btn btn-outline-info btn-lg px-4">Notify Seller</button>
           </a>
         </div>
+
+        <!--already requested-->
+				<div th:if="${requestadded}" class="alert alert-info fade show my-5" role="alert">
+					<p th:text="${requestadded}"></p>
+				</div>
+
+        <!--seller-->
+				<div th:if="${seller}" class="alert alert-info fade show my-5" role="alert">
+					<p>You are seller of this product</p>
+				</div>
         
       </div>
 

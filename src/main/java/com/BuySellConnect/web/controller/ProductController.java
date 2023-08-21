@@ -184,7 +184,8 @@ public class ProductController {
 	// edit product form
 	@RequestMapping(value="/processupdateproductform",method = RequestMethod.POST)
 	public String updateProductForm(@Valid @ModelAttribute("product") UserProduct product,
-			@RequestParam("featuretitle") String[] featuretitleArray,@RequestParam("featurecontent") String[] featurecontentArray,
+			@RequestParam(value="featuretitle",required = false) String[] featuretitleArray,
+			@RequestParam(value="featurecontent",required = false) String[] featurecontentArray,
 			@RequestParam("productpic") MultipartFile file,
 			@RequestParam String productId, Principal principal,
 			BindingResult result,Model model) throws Exception {
@@ -283,9 +284,13 @@ public class ProductController {
 		
 		if(username.equals(name))
 			model.addAttribute("seller","s");
-		else
-			model.addAttribute("buyer","b");
-		
+		else {
+			if(this.userservice.checkProductInterest(name, productId))
+				model.addAttribute("requestadded","Product Request already placed");
+			else
+				model.addAttribute("buyer","b");
+		}
+			
 		model.addAttribute("product", product);
 		model.addAttribute("features", features);
         return "viewproduct";
@@ -294,11 +299,9 @@ public class ProductController {
 	// delete product
 	@RequestMapping(value="/deleteproduct",method = RequestMethod.GET)
 	public String deleteProduct(@RequestParam String username,
-			@RequestParam String productId, Principal principal, Model model) throws IOException {
+			@RequestParam String productId, Model model) throws IOException {
 		System.out.println("This is the delete product page");
-		String name = principal.getName();
-		UserInfo user = this.userservice.getUserInfo(name);
-		this.productservice.deleteProduct(user, productId);
+		this.productservice.deleteProduct(productId);
 		return "redirect:/BuySellConnect/user/products";
 	}
 }

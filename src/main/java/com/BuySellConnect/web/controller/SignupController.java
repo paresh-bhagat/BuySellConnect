@@ -90,13 +90,13 @@ public class SignupController {
 			int[] otpEmail = this.smsservice.getOtp();
 			
 			
-			Boolean sendOtpStatusEmail =  this.emailservice.sendSignupOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
+			Boolean sendOtpStatusEmail =  true;//this.emailservice.sendSignupOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
 			
 			Boolean sendOtpStatusPhone =  true; //this.smsservice.sendOtpSms(user.getMobileNumber(), otpPhone);
 			
 			
 			otpPhone[0]=0; otpPhone[1]=0;otpPhone[2]=0;otpPhone[3]=0;
-			//otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;
+			otpEmail[0]=1; otpEmail[1]=2;otpEmail[2]=3;otpEmail[3]=4;
 			
 			if(sendOtpStatusPhone==false || sendOtpStatusEmail==false) {
 				System.out.println("Otp not send");
