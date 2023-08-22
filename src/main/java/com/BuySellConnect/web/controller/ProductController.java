@@ -202,30 +202,43 @@ public class ProductController {
 		UserInfo user = this.userservice.getUserInfo(name);
 		System.out.println(product);
 		
-		for (int i = 0; i < featuretitleArray.length; i++) {
-			Boolean errors=false;
+		List<ProductFeature> featureList = new ArrayList<>();
+		
+		if(featuretitleArray!=null) {
 			
-            System.out.println(featuretitleArray[i]);
-            
-            if(featuretitleArray[i].length() < 1 || featuretitleArray[i].length() > 20) {
-            	errors=true;
-            	model.addAttribute("titleError", "Feature title between 1 to 20 characters");
-            }
-            
-            System.out.println(featurecontentArray[i]);
-            if(featurecontentArray[i].length() < 1 || featurecontentArray[i].length() > 70) {
-            	errors=true;
-            	model.addAttribute("featureError", "Feature content between 1 to 70 characters");
-            }
-            
-            if(errors) {
-            	model.addAttribute("product", product);
-            	System.out.println(product.getProductDescription());
-        		System.out.println(product.getProductOverview());
-    			return "updateproduct";
-            }
-        }
+			for (int i = 0; i < featuretitleArray.length; i++) {
+				Boolean errors=false;
+				
+	            System.out.println("helllooooooooooooooooooooooooooooooooooooooo");
+	            
+	            if(featuretitleArray[i].length() < 1 || featuretitleArray[i].length() > 20) {
+	            	errors=true;
+	            	model.addAttribute("titleError", "Feature title between 1 to 20 characters");
+	            }
+	            
+	            System.out.println(featurecontentArray[i]);
+	            if(featurecontentArray[i].length() < 1 || featurecontentArray[i].length() > 70) {
+	            	errors=true;
+	            	model.addAttribute("featureError", "Feature content between 1 to 70 characters");
+	            }
+	            
+	            if(errors) {
+	            	model.addAttribute("product", product);
+	            	System.out.println(product.getProductDescription());
+	        		System.out.println(product.getProductOverview());
+	    			return "updateproduct";
+	            }
+	        }
+			
+			for (int i = 0; i < featuretitleArray.length; i++) {
+				ProductFeature feature = new ProductFeature();
+				feature.setFeatureTitle(featuretitleArray[i]);
+				feature.setFeatureContent(featurecontentArray[i]);
+				featureList.add(feature);
+	        }
 
+		}
+		
 		//process file
 		if(!(file==null || file.isEmpty()==true )){
 			if(file.getSize() > 5242880)
@@ -248,15 +261,6 @@ public class ProductController {
 				return "updateproduct";
 			}
 		}
-
-		List<ProductFeature> featureList = new ArrayList<>();
-		
-		for (int i = 0; i < featuretitleArray.length; i++) {
-			ProductFeature feature = new ProductFeature();
-			feature.setFeatureTitle(featuretitleArray[i]);
-			feature.setFeatureContent(featurecontentArray[i]);
-			featureList.add(feature);
-        }
 		
 		product.setProductId(Integer.parseInt(productId));
 		product.setProductImage(productold.getProductImage().replace("/productimages/", ""));
