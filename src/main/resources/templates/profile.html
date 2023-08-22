@@ -58,8 +58,8 @@
             
             <div class="rounded">
               <div class="py-5">
-                <h1 class="display-5 fw-normal">Welcome p</h1>
-                <p class="fs-5">You have 3 product(s), 3 Interests and 3 Requests.</p>
+                <h1 class="display-5 fw-normal" th:text="'Welcome ' + ${username}"> </h1>
+                
               </div>
             </div>
 
@@ -72,7 +72,7 @@
             <a th:href="@{/BuySellConnect/user/myinterests}" style="text-decoration: none">
               <div class="align-items-center p-3 mb-3 text-white rounded shadow-sm general text-center">
                   <div class="lh-1">
-                      <h2 class="m-1 text-white lh-1">MyInterests</h2>
+                      <h2 class="m-1 text-white lh-1">My Interests</h2>
                   </div>
               </div>
             </a>

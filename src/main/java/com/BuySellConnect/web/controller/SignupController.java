@@ -90,9 +90,9 @@ public class SignupController {
 			int[] otpEmail = this.smsservice.getOtp();
 			
 			
-			Boolean sendOtpStatusEmail =  true;//this.emailservice.sendSignupOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
+			Boolean sendOtpStatusEmail =  this.emailservice.sendSignupOTPEmail(user.getUsername(), user.getEmail(),otpEmail);
 			
-			Boolean sendOtpStatusPhone =  true; //this.smsservice.sendOtpSms(user.getMobileNumber(), otpPhone);
+			Boolean sendOtpStatusPhone =  this.smsservice.sendOtpSms(user.getMobileNumber(), otpPhone);
 			
 			
 			otpPhone[0]=0; otpPhone[1]=0;otpPhone[2]=0;otpPhone[3]=0;

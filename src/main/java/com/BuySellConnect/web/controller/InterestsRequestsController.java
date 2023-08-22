@@ -117,7 +117,7 @@ public class InterestsRequestsController {
 		System.out.println("This is the delete product requests page");
 		
 		String name = principal.getName();
-		this.interestsrequestsservice.sendEmailCancelRequestBuyerSeller(username, name, interestId);
+		this.interestsrequestsservice.sendEmailCancelRequestBuyerSeller(username,name,interestId);
 		
 		//delete request
 		this.interestsrequestsservice.deleteInterestProduct(interestId);

@@ -24,8 +24,10 @@ public class ProfileController {
 	
 	//profile page handler
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
-	public String profile() {
+	public String profile(Principal principal,Model model) {
+		String name = principal.getName();
 		System.out.println("This is the profile page");
+		model.addAttribute("username", name);
         return "profile";
 	}
 	
