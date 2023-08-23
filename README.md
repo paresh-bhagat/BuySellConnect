@@ -54,6 +54,8 @@ AWS (Amazon Web Services)
 
 ![Home](home.png)
 
+![PRODUCTS](products.png)
+
 ![VIEWPRODUCT](viewproduct.png)
 
 ![PROFILE](profile.png)
