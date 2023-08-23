@@ -283,6 +283,10 @@ public class ProductController {
 		System.out.println(product);
 		
 		List<ProductFeature> features = this.productservice.getProductFeatures(productId);
+		
+		if(features==null || features.isEmpty())
+			model.addAttribute("nofeatures","No features added for this product.");
+			
 		System.out.println(features);
 		
 		

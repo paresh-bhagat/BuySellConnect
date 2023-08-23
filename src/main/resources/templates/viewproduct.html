@@ -126,7 +126,12 @@
     <div class="container px-4 pt-5" id="icon-grid">
 
       <h2 class="pb-2 border-bottom">Features</h2>
-  
+      
+      <!--seller-->
+			<div th:if="${nofeatures}" class="alert alert-info fade show my-5 pt-4 mt-4" role="alert">
+				<p th:text="${nofeatures}"></p>
+			</div>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
 
         <div class="col d-flex align-items-start" th:each="feature : ${features}">
