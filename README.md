@@ -48,12 +48,14 @@ AWS (Amazon Web Services)
 * User can perform CRUD operation son their listed or added products.
 * User can raise a request for a product. Doing that will send a notification mail to both buyer and seller about the request raised. Both buyer and seller if required accept or reject this request.
 * Forgot password - After email OTP verification user will receive a randomly generated password in his/her email which can be used for login.
-* Change password - Usser can change password after login.
+* Change password - User can change password after login.
 
 ## Images
 
 ![Home](home.png)
 
-![Feed](feed.png)
+![VIEWPRODUCT](viewproduct.png)
+
+![PROFILE](profile.png)
 
 > **_NOTE:_**  i might change,reboot or terminate EC2 instance in AWS. So site might not be accesible sometimes.
