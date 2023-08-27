@@ -25,11 +25,7 @@ The Spring Framework is an application framework and inversion of control contai
 #### Spring Boot
 Spring Boot Tutorial provides basic and advanced concepts of Spring Framework. Our Spring Boot Tutorial is designed for beginners and professionals both.
 
-Spring Boot is a Spring module that provides the RAD (Rapid Application Development) feature to the Spring framework.
-
-Our Spring Boot Tutorial includes all topics of Spring Boot such, as features, project, maven project, starter project wizard, Spring Initializr, CLI, applications, annotations, dependency management, properties, starters, Actuator, JPA, JDBC, etc.
-
-It also comes with Tomcat embedded.
+Spring Boot is a Spring module that provides the RAD (Rapid Application Development) feature to the Spring framework. It also comes with Tomcat embedded.
 
 ### Database
 
