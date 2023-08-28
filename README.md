@@ -10,10 +10,8 @@ It connects buyers and sellers on this platform. After making a product request,
 
 ### Frontend
 
-* HTML
-* CSS
-* Javascript
-Bootstrap is used. Bootstrap is a popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
+* Bootstrap is used. Bootstrap is a popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
+* Thymeleaf is a modern server-side Java template engine for both web and standalone environments.
 
 ### Backend
 
