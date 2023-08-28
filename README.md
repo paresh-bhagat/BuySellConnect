@@ -40,7 +40,7 @@ AWS (Amazon Web Services)
 ## Features
 
 * Login Logout, signup, delete account for a user. Spring Security is also used to protect pages.
-* Signup is done using SMS and Email OTP verification . I have used fast2sms api for sms gateway and outlook smtp for sending emails to users.
+* Signup is done using SMS and Email OTP verification . I have used fast2sms api for sms messages and outlook smtp email service for sending emails to users.
 * User can perform CRUD operation son their listed or added products.
 * User can raise a request for a product. Doing that will send a notification mail to both buyer and seller about the request raised. Both buyer and seller if required accept or reject this request.
 * Forgot password - After email OTP verification user will receive a randomly generated password in his/her email which can be used for login.
