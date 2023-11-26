@@ -21,7 +21,7 @@ It connects buyers and sellers on this platform. After making a product request,
 The Spring Framework is an application framework and inversion of control container for the Java platform.
 
 #### Spring Boot
-Spring Boot Tutorial provides basic and advanced concepts of Spring Framework. Our Spring Boot Tutorial is designed for beginners and professionals both.
+Spring Boot Tutorial provides basic and advanced concepts of Spring Framework.
 
 Spring Boot is a Spring module that provides the RAD (Rapid Application Development) feature to the Spring framework. It also comes with Tomcat embedded.
 
